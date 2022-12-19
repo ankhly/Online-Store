@@ -25,6 +25,7 @@
 	// .logo-header__text
 	&__text {
 		font-size: 25px;
+		color: #000;
 	}
 }
 .cart-header {
@@ -115,10 +116,12 @@
 	}
 	// .view-head__small
 	&__small {
-		img {
-			width: 40px;
-			height: 40px;
-		}
+		width: 40px;
+		height: 40px;
+		background: url("../public/small-grid.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
 		transition: all 0.3s;
 		@media (any-hover: hover) {
 			&:hover {
@@ -128,10 +131,12 @@
 	}
 	// .view-head__big
 	&__big {
-		img {
-			width: 40px;
-			height: 40px;
-		}
+		background: url("https://img.icons8.com/ios-filled/50/null/thumbnail-view.png");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		width: 40px;
+		height: 40px;
 		transition: all 0.3s;
 		@media (any-hover: hover) {
 			&:hover {
@@ -156,7 +161,7 @@
 	}
 	// .main-page__aside
 	&__aside {
-		flex: 0 0 30%;
+		flex: 0 0 25%;
 	}
 	// .main-page__content
 	&__content {
@@ -171,7 +176,8 @@
 	// .main-page__catalog
 	&__catalog {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		//grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 		gap: 15px;
 	}
 }
@@ -179,28 +185,55 @@
 .item-catalog {
 	// .item-catalog__item
 	&__item {
-		padding: 10px 15px 10px 15px;
-		border-radius: 10px;
+		position: relative;
+		padding: 0px 15px 25px 15px;
+		border-radius: 15px;
 		display: flex;
 		flex-direction: column;
-		max-width: 300px;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		border: 2px solid rgb(195, 212, 46);
+		&::before {
+			content: "";
+			width: 100%;
+			height: 100%;
+			background-color: rgb(0, 0, 0, 0.4);
+			border-radius: 15px;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
 	}
-}
-.item {
-	// .item__title
+	// .item-catalog__title
 	&__title {
 		text-align: center;
 		text-transform: uppercase;
-		font-size: 20px;
+		font-size: 16px;
+		color: #ffff;
+		font-weight: 700;
+		z-index: 2;
+		padding: 20px 0px 15px 0px;
+		flex: 1 1 auto;
+	}
+	// .item-catalog__description
+	&__description {
+		font-size: 14px;
+		color: #ffff;
+		font-weight: 700;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		z-index: 2;
 		&:not(:last-child) {
-			margin: 0px 0px 15px 0px;
+			margin: 0px 0px auto 0px;
 		}
 	}
-	// .item__description
-	&__description {
-	}
-	// .item__buttons
+	// .item-catalog__buttons
 	&__buttons {
+		display: flex;
+		justify-content: space-between;
+		margin: 40px 0px 0px 0px;
 	}
 }
 .description-item {
@@ -223,7 +256,27 @@
 	&__stock {
 	}
 }
+.btn-item {
+	text-transform: uppercase;
+	font-size: 14px;
+	color: #ffff;
+	font-weight: 700;
+	z-index: 2;
+	padding: 6px 10px;
+	border: 3px solid #ffff;
+	transition: all 0.3s;
+	@media (any-hover: hover) {
+		&:hover {
+			transform: scale(1.1);
+		}
+	}
+}
 .buttons-item {
+	&.column {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
 	// .buttons-item__add
 	&__add {
 	}
@@ -305,99 +358,100 @@
 	&__copy {
 	}
 }
-.category-aside {
-	// .category-aside__title
-	&__title {
-	}
-	// .category-aside__items
-	&__items {
-		max-height: 220px;
-		overflow: auto;
-	}
-}
-.item-category {
-	// .item-category__item
-	&__item {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding-right: 10px;
-		&:not(:last-child) {
-			margin: 0px 0px 15px 0px;
-		}
-		cursor: pointer;
-		&::before {
-			content: "";
-			width: 12px;
-			height: 12px;
-			border-radius: 50%;
-			border: 1px solid #000;
-			margin: 0px 8px 0px 0px;
-		}
-	}
-	// .item-category__name
-	&__name {
-		margin: 0px auto 0px 0px;
-	}
-	// .item-category__amount
-	&__amount {
-	}
-}
-.brand-aside {
-	// .brand-aside__title
-	&__title {
-	}
-	// .brand-aside__items
-	&__items {
-		max-height: 220px;
-		overflow: auto;
-	}
-}
-.item-brand {
-	// .item-brand__item
-	&__item {
-		&:not(:last-child) {
-			margin: 0px 0px 15px 0px;
-		}
-		padding-right: 10px;
-		cursor: pointer;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		&::before {
-			content: "";
-			width: 12px;
-			height: 12px;
-			border-radius: 50%;
-			border: 1px solid #000;
-			margin: 0px 8px 0px 0px;
-		}
-	}
-	// .item-brand__name
-	&__name {
-		margin: 0px auto 0px 0px;
-	}
-	// .item-brand__amount
-	&__amount {
-	}
+
+.category-aside__items,
+.brand-aside__items {
+	max-height: 220px;
+	overflow: auto;
 }
 
-.price-aside {
-	// .price-aside__title
-	&__title {
-	}
-	// .price-aside__choose
-	&__choose {
+.item-sort {
+	// .item-sort__item
+	&__item {
 		display: flex;
-		justify-content: space-between;
-		padding: 5px 30px;
+		justify-content: center;
+		align-items: center;
+		padding-right: 10px;
+		&:not(:last-child) {
+			margin: 0px 0px 15px 0px;
+		}
+		cursor: pointer;
+		&::before {
+			content: "";
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			border: 1px solid #000;
+			margin: 0px 8px 0px 0px;
+		}
 	}
-	// .price-aside__from
-	&__from {
+	// .item-sort__name
+	&__name {
+		margin: 0px auto 0px 0px;
 	}
-	// .price-aside__to
-	&__to {
+	// .item-sort__amount
+	&__amount {
 	}
 }
 
 //=====
+
+.range-aside {
+	padding: 0px 25px 50px 25px;
+	// .range-aside__title
+	&__title {
+	}
+	// .range-aside__values
+	&__values {
+		display: flex;
+		justify-content: space-between;
+		padding: 15px 30px;
+	}
+	// .range-aside__from
+	&__from {
+	}
+	// .range-aside__to
+	&__to {
+	}
+	// .range-aside__input
+	&__input {
+		position: relative;
+	}
+}
+
+.multi-range {
+	input {
+		appearance: none;
+		width: 100%;
+		outline: none;
+		position: absolute;
+		top: 0;
+		pointer-events: none;
+		background-color: transparent;
+		height: 5px;
+	}
+	input::-webkit-slider-thumb {
+		appearance: none;
+		height: 20px;
+		width: 20px;
+		background-color: #ed1111;
+		cursor: pointer;
+		border-radius: 50%;
+		pointer-events: auto;
+	}
+	// .multi-range__track
+	&__track {
+		width: 100%;
+		height: 5px;
+		background-color: #000;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+	}
+	// .multi-range__min
+	&__min {
+	}
+	// .multi-range__max
+	&__max {
+	}
+}
