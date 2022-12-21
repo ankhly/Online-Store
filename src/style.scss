@@ -37,3 +37,14 @@ $md4: 479.98;
 }
 
 //=======
+
+// Активыне стили
+.activeLittleBig {
+  border: 1px solid red;
+}
+
+.activeCategoryBrand::before {
+  background: red;
+}
+
+

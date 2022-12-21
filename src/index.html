@@ -13,13 +13,13 @@
           <div class="header__body">
             <a href="" class="header__logo logo-header">
               <div class="logo-header__icon"></div>
-              <div class="logo-header__text">Online Store</div>
+              <div class="logo-header__text" id="main">Online Store</div>
             </a>
             <div class="header__cart cart-header">
               <div class="cart-header__total">
                 Cart total: € <span> 0.00</span>
               </div>
-              <div class="cart-header__icon">
+              <div class="cart-header__icon" id="cart">
                 <img src="./cart.svg" alt="" />
                 <span>0</span>
               </div>
@@ -43,7 +43,7 @@
                   </div>
                   <div class="aside-page__category category-aside">
                     <h3 class="category-aside__title title-aside">Category</h3>
-                    <div class="category-aside__items item-sort category"></div>
+                    <div class="category-aside__items item-sort categories"></div>
                   </div>
                   <div class="aside-page__brand brand-aside">
                     <h3 class="brand-aside__title title-aside">Brand</h3>
@@ -103,13 +103,13 @@
                 <div class="main-page__head head-catalog">
                   <div class="head-catalog__body">
                     <div class="head-catalog__sort sort-head">
-                      <select class="sort-head__sort">
-                        <option value="1" selected="selected">Sort by</option>
-                        <option value="2">text1</option>
-                        <option value="3">text2</option>
-                        <option value="4">text3</option>
-                        <option value="5">text4</option>
-                        <option value="6">text5</option>
+                      <select class="sort-head__sort" id="sort">
+                        <option value="price-ASC">price-ASC</option>
+                        <option value="prise-DESC">prise-DESC</option>
+                        <option value="rating-ASC">rating-ASC</option>
+                        <option value="rating-DESC">rating-DESC</option>
+                        <option value="discount-ASC">discount-ASC</option>
+                        <option value="discount-DESC">discount-DESC</option>
                       </select>
                     </div>
                     <div class="head-catalog__found">
@@ -117,9 +117,10 @@
                     </div>
                     <div class="head-catalog__search search-head">
                       <input
-                        type="search"
-                        placeholder="Search product"
                         class="search-head__search-inp"
+                        id="search"
+                        type="text"
+                        placeholder="Search product"
                       />
                     </div>
                     <div class="head-catalog__view view-head">

@@ -1,4 +1,4 @@
-import { Location } from '../../../../RSSchool - Online-Store/Online-Store/src/types';
+import { Location } from '../types';
 
 let storageLocationCategoriesFlag: string | null = localStorage.getItem('locationCategoriesFlag');
 let locationCategoriesFlag: string | null = storageLocationCategoriesFlag || 'true';
@@ -55,9 +55,7 @@ function zeroingLocationStrings(): void {
 export const historyResolver = (location: string, prefix?: string, activeFlag?: boolean): void => {
   locationStringCategories = localStorage.getItem('locationStringCategories') || '';
   locationStringBrands = localStorage.getItem('locationStringBrands') || '';
-  locationStringSorts = localStorage.getItem('locationStringSorts') || '';
   locationStringSearch = localStorage.getItem('locationStringSearch') || '';
-  locationStringLittleBig = localStorage.getItem('locationStringLittleBig') || '';
 
   if (location === Location.category) {
     if (locationCategoriesFlag === 'true') {

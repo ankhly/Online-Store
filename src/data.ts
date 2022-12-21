@@ -1,4 +1,4 @@
-export let productsObj = {
+export const productsObj = {
   products: [
     {
       id: 1,
