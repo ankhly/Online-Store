@@ -1,6 +1,7 @@
 //header
 .header {
 	padding: 20px 0px 30px 0px;
+  cursor: pointer;
 	// .header__container
 	&__container {
 	}
@@ -118,10 +119,7 @@
 	&__small {
 		width: 40px;
 		height: 40px;
-		background: url("../public/bigs.svg");
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
+		background: url("../public/bigs.svg") no-repeat center / cover;
 		transition: all 0.3s;
 		@media (any-hover: hover) {
 			&:hover {
@@ -131,10 +129,7 @@
 	}
 	// .view-head__big
 	&__big {
-		background: url("../public/littles.svg");
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
+		background: url("../public/littles.svg") no-repeat center / cover;
 		width: 40px;
 		height: 40px;
 		transition: all 0.3s;

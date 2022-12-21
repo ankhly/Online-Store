@@ -1,4 +1,5 @@
-import { productsObj } from '../data';
+import { productsObj } from '../utilities/data';
+import {Product} from "../types";
 
 const itemCatalog = document.querySelector('.item-catalog') as HTMLElement;
 const itemBrand = document.querySelector('.brands') as HTMLElement;
@@ -6,7 +7,7 @@ const itemCategory = document.querySelector('.categories') as HTMLElement;
 
 const arrBrands: string[] = [];
 const arrCategory: string[] = [];
-const arr = productsObj.products;
+const arr: Product[] = productsObj.products;
 
 for (let i = 0; i < arr.length; i++) {
   arrBrands.push(arr[i].brand);
@@ -52,18 +53,18 @@ class AddItem {
     this.array = array;
   }
 
-  sortArr() {
+  sortArr(): string[] {
     this.array = this.array
-      .map((e) => e[0].toLocaleUpperCase() + e.slice(1).toLowerCase())
+      .map((e: string) => e[0].toLocaleUpperCase() + e.slice(1).toLowerCase())
       .sort();
     return [...new Set(this.array)];
   }
 
   // eslint-disable-next-line class-methods-use-this
-  addCategories(array: string[]) {
+  addCategories(array: string[]): void {
     for (let i = 0; i < array.length; i++) {
       const item = `
-        <div class="item-sort__item category" data-category='${array[i].toLowerCase()}'>
+        <div class="item-sort__item category" data-category='${array[i].toLowerCase().replace(/\s/g, '')}'>
           <div class="item-sort__name">${array[i]}</div>
           <div class="item-sort__amount">(5/5)</div>
         </div>
@@ -73,10 +74,10 @@ class AddItem {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  addBrands(array: string[]) {
+  addBrands(array: string[]): void {
     for (let i = 0; i < array.length; i++) {
       const item = `
-        <div class="item-sort__item brand" data-brand='${array[i].toLowerCase()}'>
+        <div class="item-sort__item brand" data-brand='${array[i].toLowerCase().replace(/\s/g, '')}'>
           <div class="item-sort__name">${array[i]}</div>
           <div class="item-sort__amount">(1/1)</div>
         </div>
@@ -91,46 +92,3 @@ brands.addBrands(brandsSort);
 const categories = new AddItem(arrCategory);
 const categorySort = categories.sortArr();
 categories.addCategories(categorySort);
-
-// ======
-
-// const viewButtons = document.querySelector('.view-head__buttons') as HTMLElement;
-// const viewBig = document.querySelector('.view-head__big') as HTMLElement;
-// const viewSmall = document.querySelector('.view-head__small') as HTMLElement;
-// const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
-// const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
-// const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
-//
-// function changeBlock(e: Event) {
-//   for (let i = 0; i < descriptionItems.length; i++) {
-//     const descriptionItem = descriptionItems[i] as HTMLElement;
-//     const buttonsItem = buttonsItems[i] as HTMLElement;
-//     if (e.target) {
-//       if (e.target === viewBig) {
-//         localStorage.setItem('BigBlock', 'big');
-//         descriptionItem.style.display = 'none';
-//         buttonsItem.classList.add('column');
-//         pageCatalog.style.gridTemplateColumns = 'repeat(auto-fit, minmax(160px, 1fr))';
-//       } else if (e.target === viewSmall) {
-//         localStorage.removeItem('BigBlock');
-//         descriptionItem.style.display = 'flex';
-//         buttonsItem.classList.remove('column');
-//         pageCatalog.style.gridTemplateColumns = 'repeat(auto-fit, minmax(240px, 1fr))';
-//       }
-//     }
-//     if (localStorage.getItem('BigBlock')) {
-//       descriptionItem.style.display = 'none';
-//       buttonsItem.classList.add('column');
-//       pageCatalog.style.gridTemplateColumns = 'repeat(auto-fit, minmax(160px, 1fr))';
-//     } else {
-//       descriptionItem.style.display = 'flex';
-//       buttonsItem.classList.remove('column');
-//       pageCatalog.style.gridTemplateColumns = 'repeat(auto-fit, minmax(240px, 1fr))';
-//     }
-//   }
-// }
-//
-// viewButtons.addEventListener('click', changeBlock);
-// window.addEventListener('DOMContentLoaded', changeBlock);
-
-// ==================
