@@ -1,4 +1,6 @@
-export let productsObj = {
+import { Data } from '../types';
+
+export const productsObj: Data = {
   products: [
     {
       id: 1,

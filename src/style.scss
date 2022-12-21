@@ -13,7 +13,7 @@ $md4: 479.98;
 
 //imports
 
-@import "./main-page/null.scss";
+@import "./utilities/null.scss";
 @import "./main-page/main.scss";
 
 //общие классы и стили
@@ -37,3 +37,14 @@ $md4: 479.98;
 }
 
 //=======
+
+// Активыне стили
+.activeLittleBig {
+  border: 1px solid red;
+}
+
+.activeCategoryBrand::before {
+  background: red;
+}
+
+
