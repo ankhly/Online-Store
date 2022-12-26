@@ -1,7 +1,7 @@
 //header
 .header {
 	padding: 20px 0px 30px 0px;
-  cursor: pointer;
+	//cursor: pointer;
 	// .header__container
 	&__container {
 	}
@@ -20,6 +20,7 @@
 }
 
 .logo-header {
+	cursor: pointer;
 	// .logo-header__icon
 	&__icon {
 	}
@@ -35,7 +36,8 @@
 	gap: 30px;
 	// .cart-header__total
 	&__total {
-		font-size: 25px;
+		font-size: 28px;
+		font-weight: 700;
 		span {
 			color: red;
 		}
@@ -43,7 +45,6 @@
 	// .cart-header__icon
 	&__icon {
 		position: relative;
-		cursor: pointer;
 		transition: all 0.3s;
 		img {
 			width: 55px;
@@ -185,9 +186,9 @@
 		border-radius: 15px;
 		display: flex;
 		flex-direction: column;
-		background-size: cover;
-		background-repeat: no-repeat;
-		background-position: center;
+		//background-size: cover;
+		//background-repeat: no-repeat;
+		//background-position: center;
 		border: 2px solid rgb(195, 212, 46);
 		&::before {
 			content: "";
@@ -257,7 +258,7 @@
 	color: #ffff;
 	font-weight: 700;
 	z-index: 2;
-	padding: 6px 10px;
+	padding: 5px 3px;
 	border: 3px solid #ffff;
 	transition: all 0.3s;
 	@media (any-hover: hover) {

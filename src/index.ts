@@ -2,6 +2,7 @@ import './style.scss';
 import './main-page/content';
 
 import {
+  addToCard,
   categories,
   brands,
   sort,
@@ -17,15 +18,24 @@ import {
   valueFroms,
   valueTos,
 } from './utilities/nodes';
-import { categoriesClick, categoriesQueryString } from './components/categories';
+import {
+  categoriesClick,
+  categoriesQueryString,
+} from './components/categories';
 import { brandsClick, brandsQueryString } from './components/brands';
 import { sortChange, sortQueryString } from './components/sort';
 import { searchInput, searchQueryString } from './components/search';
-import { bigButtonClick, littleButtonClick, littleBigButtonsQueryString } from './components/littleBigButtons';
+import {
+  bigButtonClick,
+  littleButtonClick,
+  littleBigButtonsQueryString,
+} from './components/littleBigButtons';
 import { mainClick, resetClick } from './components/resets';
 import { productCardsClick } from './components/productCards';
 import { cartClick } from './components/cart';
 import { rangeMinMaxInput } from './components/rangeMinMax';
+import { productCardsDetails } from './details/details';
+import { addToCardClick } from './cart/cart';
 
 // Выбор категории
 categoriesClick(categories);
@@ -76,3 +86,9 @@ window.addEventListener('popstate', (event: PopStateEvent): void => {
 
 // Для ручного ввода URL
 queryStringLogic();
+
+//Детали товара
+productCardsDetails(productCards);
+
+//add to cart click buttons
+addToCardClick(addToCard);
