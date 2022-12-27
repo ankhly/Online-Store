@@ -1,9 +1,15 @@
 // Все (Logic)
-export const categories = document.querySelectorAll('.category') as NodeListOf<HTMLElement>;
-export const brands = document.querySelectorAll('.brand') as NodeListOf<HTMLElement>;
+export const categories = document.querySelectorAll(
+  '.category'
+) as NodeListOf<HTMLElement>;
+export const brands = document.querySelectorAll(
+  '.brand'
+) as NodeListOf<HTMLElement>;
 export const sort = document.querySelector('#sort') as HTMLSelectElement;
 export const search = document.querySelector('#search') as HTMLInputElement;
-export const productCards = document.querySelectorAll('.buttons-item__details') as NodeListOf<HTMLElement>;
+export const productCards = document.querySelectorAll(
+  '.buttons-item__details'
+) as NodeListOf<HTMLElement>;
 export const cart = document.querySelector('#cart') as HTMLElement;
 
 // Все (Rendering)
@@ -16,14 +22,56 @@ export const main = document.querySelector('#main') as HTMLElement;
 export const reset = document.querySelector('#reset') as HTMLElement;
 
 // Маленькое или большое отображение
-export const littleButton = document.querySelector('.view-head__big') as HTMLElement;
-export const bigButton = document.querySelector('.view-head__small') as HTMLElement;
-export const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
-export const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
-export const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
+export const littleButton = document.querySelector(
+  '.view-head__big'
+) as HTMLElement;
+export const bigButton = document.querySelector(
+  '.view-head__small'
+) as HTMLElement;
+export const descriptionItems = document.querySelectorAll(
+  '.description-item '
+) as NodeListOf<Element>;
+export const pageCatalog = document.querySelector(
+  '.main-page__catalog'
+) as HTMLElement;
+export const buttonsItems = document.querySelectorAll(
+  '.buttons-item'
+) as NodeListOf<Element>;
 
 // Input Range
-export const rangeMins = document.querySelectorAll('.multi-range__min') as NodeListOf<HTMLInputElement>;
-export const rangeMaxs = document.querySelectorAll('.multi-range__max') as NodeListOf<HTMLInputElement>;
-export const valueFroms = document.querySelectorAll('.range-aside__from span') as NodeListOf<Element>;
-export const valueTos = document.querySelectorAll('.range-aside__to span') as NodeListOf<Element>;
+export const rangeMins = document.querySelectorAll(
+  '.multi-range__min'
+) as NodeListOf<HTMLInputElement>;
+export const rangeMaxs = document.querySelectorAll(
+  '.multi-range__max'
+) as NodeListOf<HTMLInputElement>;
+export const valueFroms = document.querySelectorAll(
+  '.range-aside__from span'
+) as NodeListOf<Element>;
+export const valueTos = document.querySelectorAll(
+  '.range-aside__to span'
+) as NodeListOf<Element>;
+
+//Детали товара
+export const mainPage = document.querySelector(
+  '.main-page__body'
+) as HTMLBRElement;
+
+// add to cart buttons
+
+export const addToCard = document.querySelectorAll(
+  '.buttons-item__add'
+) as NodeListOf<HTMLElement>;
+
+//cart button
+export const cartBtn = document.querySelector(
+  '.cart-header__icon'
+) as HTMLBRElement;
+
+export const cardIcon = document.querySelector(
+  '.cart-header__icon span'
+) as HTMLElement;
+
+export const cardHeaderTotal = document.querySelector(
+  '.cart-header__total span'
+) as HTMLElement;
