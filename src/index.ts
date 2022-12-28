@@ -68,7 +68,7 @@ resetClick(reset);
 rangeMinMaxInput(rangeMins, rangeMaxs, valueFroms, valueTos);
 
 // queryStringLogic
-function queryStringLogic(): void {
+export function queryStringLogic(): void {
   const queryString: string = window.location.search;
   const queryStringArray: string[] = queryString.split(/\?|&|%E2%86%95/);
   const urlParams: URLSearchParams = new URLSearchParams(queryString);
@@ -107,11 +107,3 @@ window.addEventListener('popstate', (event: PopStateEvent): void => {
 
 // Для ручного ввода URL
 queryStringLogic();
-
-//Детали товара
-productCardsDetails(productCards);
-
-//add to cart click buttons
-addToCardClick(addToCard);
-
-cartBtnClick(cartBtn);

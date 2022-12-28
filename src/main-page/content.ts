@@ -14,6 +14,9 @@ for (let i = 0; i < arr.length; i++) {
 }
 
 export function getPageHtml() {
+  const body = document.querySelector('body') as HTMLElement;
+
+  body.innerHTML = '';
   const mainContent = `
     <div class="wrapper">
       <header class="header">
@@ -28,7 +31,7 @@ export function getPageHtml() {
                 Cart total: € <span> 0</span>
               </div>
               <button class="cart-header__icon" id="cart">
-                <img src="./cart.svg" alt="" />
+                <img src="./cart.svg" alt="picture" />
                 <span>0</span>
               </button>
             </div>

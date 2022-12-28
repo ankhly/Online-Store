@@ -1,7 +1,3 @@
-import {
-  bigButton,
-  littleButton,
-} from '../utilities/nodes';
 import { historyResolver } from '../routing/routing';
 import { Location } from '../types';
 
@@ -10,6 +6,8 @@ export function addBigButtonClass(
   descriptionItems: NodeListOf<Element>,
   pageCatalog: HTMLElement,
   buttonsItems: NodeListOf<Element>,
+  littleButton: HTMLElement,
+  bigButton: HTMLElement,
 ): void {
   bigButton.classList.add('activeLittleBig');
   littleButton.classList.remove('activeLittleBig');
@@ -27,6 +25,8 @@ export function addLittleButtonClass(
   descriptionItems: NodeListOf<Element>,
   pageCatalog: HTMLElement,
   buttonsItems: NodeListOf<Element>,
+  littleButton: HTMLElement,
+  bigButton: HTMLElement,
 ): void {
   littleButton.classList.add('activeLittleBig');
   bigButton.classList.remove('activeLittleBig');
@@ -46,8 +46,10 @@ export function littleButtonClick(little: HTMLElement): void {
     const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
     const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
     const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
+    const littleButton = document.querySelector('.view-head__big') as HTMLElement;
+    const bigButton = document.querySelector('.view-head__small') as HTMLElement;
 
-    addLittleButtonClass(descriptionItems, pageCatalog, buttonsItems);
+    addLittleButtonClass(descriptionItems, pageCatalog, buttonsItems, littleButton, bigButton);
 
     historyResolver(Location.littleBig, prefix);
   });
@@ -60,8 +62,10 @@ export function bigButtonClick(big: HTMLElement): void {
     const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
     const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
     const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
+    const littleButton = document.querySelector('.view-head__big') as HTMLElement;
+    const bigButton = document.querySelector('.view-head__small') as HTMLElement;
 
-    addBigButtonClass(descriptionItems, pageCatalog, buttonsItems);
+    addBigButtonClass(descriptionItems, pageCatalog, buttonsItems, littleButton, bigButton);
 
     historyResolver(Location.littleBig, prefix);
   });
@@ -72,10 +76,13 @@ export function littleBigButtonsQueryString(urlParams: URLSearchParams): void {
   const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
   const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
   const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
+  const littleButton = document.querySelector('.view-head__big') as HTMLElement;
+  const bigButton = document.querySelector('.view-head__small') as HTMLElement;
+
   if (urlParams.getAll('big').join('') === 'false') {
-    addLittleButtonClass(descriptionItems, pageCatalog, buttonsItems);
+    addLittleButtonClass(descriptionItems, pageCatalog, buttonsItems, littleButton, bigButton);
   } else {
-    addBigButtonClass(descriptionItems, pageCatalog, buttonsItems);
+    addBigButtonClass(descriptionItems, pageCatalog, buttonsItems, littleButton, bigButton);
   }
 }
 
@@ -84,10 +91,12 @@ export function saveView(): void {
   const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
   const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
   const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
+  const littleButton = document.querySelector('.view-head__big') as HTMLElement;
+  const bigButton = document.querySelector('.view-head__small') as HTMLElement;
 
   if (littleButton.className.includes('activeLittleBig')) {
-    addLittleButtonClass(descriptionItems, pageCatalog, buttonsItems);
+    addLittleButtonClass(descriptionItems, pageCatalog, buttonsItems, littleButton, bigButton);
   } else {
-    addBigButtonClass(descriptionItems, pageCatalog, buttonsItems);
+    addBigButtonClass(descriptionItems, pageCatalog, buttonsItems, littleButton, bigButton);
   }
 }

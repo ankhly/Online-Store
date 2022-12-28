@@ -1,6 +1,9 @@
 import { Product, KeyCategory, KeyBrand } from '../types';
 import { productsObj } from '../utilities/data';
 import { showFiltered, showNoProducts } from '../main-page/content';
+import {productCardsDetails} from "../details/details";
+import {addToCardClick, cartBtnClick} from "../cart/cart";
+import {cartBtn} from "../utilities/nodes";
 
 const arr: Product[] = productsObj.products;
 
@@ -80,5 +83,14 @@ export function filtering(
     showNoProducts();
   } else {
     showFiltered(searchFilterArray);
+
+    const productCards = document.querySelectorAll('.buttons-item__details') as NodeListOf<HTMLElement>;
+    productCardsDetails(searchFilterArray, productCards);
+
+    const addToCard = document.querySelectorAll('.buttons-item__add') as NodeListOf<HTMLElement>;
+    addToCardClick(searchFilterArray, addToCard);
+
+    const cartBtn = document.querySelector('.cart-header__icon') as HTMLElement;
+    cartBtnClick(cartBtn)
   }
 }
