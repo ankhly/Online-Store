@@ -10,8 +10,6 @@ import { categoriesClick } from './categories';
 import { brandsClick } from './brands';
 import { searchInput } from './search';
 import { sortChange } from './sort';
-import { productCardsClick } from './productCards';
-import { cartClick } from './cart';
 import { rangeMinMaxInput } from './rangeMinMax';
 
 function zeroingStylesPage(): void {
@@ -79,10 +77,6 @@ function rendering() {
   littleButtonClick(littleButton);
   // Кнопка много
   bigButtonClick(bigButton);
-  // Выбор карточки
-  productCardsClick(productCards);
-  // Корзина
-  cartClick(cart);
   // На главную (Сброс настроек)
   mainClick(mainNode);
   // Сброс настроек

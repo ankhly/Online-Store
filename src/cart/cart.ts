@@ -1,4 +1,5 @@
-import { Product } from '../types';
+import { Location, Product } from '../types';
+import { historyResolver } from '../routing/routing';
 
 const arrCart: Product[] = [];
 
@@ -39,10 +40,12 @@ export function addToCardClick(filterArray: Product[], addToCard: NodeListOf<HTM
   }
 }
 
-export function cartBtnClick(cartBtn: HTMLElement) {
+export function cartBtnClick(cartBtn: HTMLElement): void {
   const mainPage = document.querySelector('.main-page__body') as HTMLElement;
   const cardHeaderTotal = document.querySelector('.cart-header__total span') as HTMLElement;
   cartBtn.addEventListener('click', (): void => {
+    historyResolver(Location.cart);
+
     mainPage.innerHTML = '';
     const cartContent = `
       <div class="main-page__cart cart-page">

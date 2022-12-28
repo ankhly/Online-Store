@@ -6,8 +6,6 @@ import {
   brands,
   sort,
   search,
-  productCards,
-  cart,
   main,
   reset,
   littleButton,
@@ -30,8 +28,6 @@ import {
   littleBigButtonsQueryString, saveView,
 } from './components/littleBigButtons';
 import { mainClick, resetClick } from './components/resets';
-import { productCardsClick } from './components/productCards';
-import { cartClick } from './components/cart';
 import { rangeMinMaxInput } from './components/rangeMinMax';
 import { filtering } from './logic/filter';
 import { Product } from './types';
@@ -53,10 +49,6 @@ searchInput(search);
 littleButtonClick(littleButton);
 // // Кнопка много
 bigButtonClick(bigButton);
-// Выбор карточки
-productCardsClick(productCards);
-// Корзина
-cartClick(cart);
 // На главную (Сброс настроек)
 mainClick(main);
 // Сброс настроек
