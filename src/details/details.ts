@@ -1,5 +1,6 @@
 import { Location, Product } from '../types';
 import { historyResolver } from '../routing/routing';
+import { addCartCount, removeCartCount } from '../cart/cart';
 
 export function productCardsDetails(filterArray: Product[], productCards: NodeListOf<HTMLElement>): void {
   for (let i = 0; i < productCards.length; i++) {
@@ -91,6 +92,37 @@ export function productCardsDetails(filterArray: Product[], productCards: NodeLi
             const clickFoto = e.target as HTMLImageElement;
             mainFoto.src = clickFoto.src;
           }
+        }
+      });
+
+      const add = document.querySelector('.actions-details__add') as HTMLElement;
+      const cardHeaderTotal = document.querySelector('.cart-header__total span') as HTMLElement;
+      const arrCart = JSON.parse(localStorage.getItem('arrCart')!) || [];
+      let total = Number(localStorage.getItem('total')) || 0;
+
+      if (arrCart.some((elem: Product) => elem.id === filterArray[i].id)) {
+        add.innerHTML = 'Drop from cart';
+      }
+
+      add.addEventListener('click', () => {
+        if (arrCart.some((elem: Product) => elem.id === filterArray[i].id)) {
+        // if (arrCart.includes(filterArray[i])) {
+          const a = arrCart.indexOf(filterArray[i]);
+          arrCart.splice(a, 1);
+          add.innerHTML = 'Add to cart';
+          total -= filterArray[i].price;
+          cardHeaderTotal.innerHTML = total.toString();
+          removeCartCount();
+          localStorage.setItem('arrCart', JSON.stringify(arrCart));
+          localStorage.setItem('total', `${total}`);
+        } else {
+          arrCart.push(filterArray[i]);
+          add.innerHTML = 'Drop from cart';
+          total += filterArray[i].price;
+          cardHeaderTotal.innerHTML = total.toString();
+          addCartCount();
+          localStorage.setItem('arrCart', JSON.stringify(arrCart));
+          localStorage.setItem('total', `${total}`);
         }
       });
     });

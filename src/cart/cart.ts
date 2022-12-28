@@ -6,7 +6,7 @@ let arrCart: Product[] = JSON.parse(localStorage.getItem('arrCart')!) || [];
 let total: number = Number(localStorage.getItem('total')) || 0;
 let countCart: number = Number(localStorage.getItem('countCart')) || 0;
 
-function addCartCount(): void {
+export function addCartCount(): void {
   const cardIcon = document.querySelector('.cart-header__icon span') as HTMLElement;
   countCart = Number(localStorage.getItem('countCart')) || 0;
   countCart++;
@@ -14,7 +14,7 @@ function addCartCount(): void {
   localStorage.setItem('countCart', `${countCart}`);
 }
 
-function removeCartCount(): void {
+export function removeCartCount(): void {
   const cardIcon = document.querySelector('.cart-header__icon span') as HTMLElement;
   countCart = Number(localStorage.getItem('countCart')) || 0;
   countCart--;
@@ -35,6 +35,7 @@ export function addToCardClick(filterArray: Product[], addToCard: NodeListOf<HTM
         total -= filterArray[i].price;
         cardHeaderTotal.innerHTML = total.toString();
         removeCartCount();
+        localStorage.setItem('arrCart', JSON.stringify(arrCart));
         localStorage.setItem('total', `${total}`);
       } else {
         arrCart.push(filterArray[i]);
@@ -53,6 +54,10 @@ export function cartBtnClick(cartBtn: HTMLElement): void {
   const mainPage = document.querySelector('.main-page__body') as HTMLElement;
   const cardHeaderTotal = document.querySelector('.cart-header__total span') as HTMLElement;
   cartBtn.addEventListener('click', (): void => {
+    if (Number(localStorage.getItem('countCart')) === 0) {
+      localStorage.setItem('arrCart', JSON.stringify([]));
+    }
+    total = Number(localStorage.getItem('total')) || 0;
     historyResolver(Location.cart);
 
     mainPage.innerHTML = '';
