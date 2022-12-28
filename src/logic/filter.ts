@@ -1,9 +1,8 @@
 import { Product, KeyCategory, KeyBrand } from '../types';
 import { productsObj } from '../utilities/data';
 import { showFiltered, showNoProducts } from '../main-page/content';
-import {productCardsDetails} from "../details/details";
-import {addToCardClick, cartBtnClick} from "../cart/cart";
-import {cartBtn} from "../utilities/nodes";
+import { productCardsDetails } from '../details/details';
+import { addToCardClick, cartBtnClick } from '../cart/cart';
 
 const arr: Product[] = productsObj.products;
 
@@ -91,6 +90,6 @@ export function filtering(
     addToCardClick(searchFilterArray, addToCard);
 
     const cartBtn = document.querySelector('.cart-header__icon') as HTMLElement;
-    cartBtnClick(cartBtn)
+    cartBtnClick(cartBtn);
   }
 }

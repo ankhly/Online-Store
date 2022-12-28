@@ -2,8 +2,6 @@ import { productsObj } from '../utilities/data';
 import { Product } from '../types';
 import { AddItem } from './addItem';
 
-const body = document.querySelector('body') as HTMLElement;
-
 const arrBrands: string[] = [];
 const arrCategory: string[] = [];
 export const arr: Product[] = productsObj.products;
@@ -13,7 +11,7 @@ for (let i = 0; i < arr.length; i++) {
   arrCategory.push(arr[i].category);
 }
 
-export function getPageHtml() {
+export function getPageHtml(): void {
   const body = document.querySelector('body') as HTMLElement;
 
   body.innerHTML = '';
@@ -166,7 +164,7 @@ export function getPageHtml() {
 }
 getPageHtml();
 
-export function showFiltered(filterArray: Product[]) {
+export function showFiltered(filterArray: Product[]): void {
   const itemCatalog = document.querySelector('.item-catalog') as HTMLElement;
 
   itemCatalog.innerHTML = '';
@@ -209,7 +207,7 @@ export function showFiltered(filterArray: Product[]) {
     const catalogBgs = document.querySelectorAll('.item-catalog__item') as NodeListOf<Element>;
 
     for (let i = 0; i < filterArray.length; i++) {
-      let catalogBg = catalogBgs[i] as HTMLElement;
+      const catalogBg = catalogBgs[i] as HTMLElement;
       try {
         const res = await fetch(filterArray[i].thumbnail);
         catalogBg.style.background = `url(${res.url})`;
@@ -223,7 +221,7 @@ export function showFiltered(filterArray: Product[]) {
   getImage();
 }
 
-export function showNoProducts() {
+export function showNoProducts(): void {
   const itemCatalog = document.querySelector('.item-catalog') as HTMLElement;
 
   itemCatalog.innerHTML = '';

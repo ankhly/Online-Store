@@ -1,24 +1,25 @@
 import {
-  brands,
-  categories,
-  search,
-  sort,
-} from '../utilities/nodes';
-import {addBigButtonClass, bigButtonClick, littleButtonClick, saveView} from './littleBigButtons';
+  addBigButtonClass, bigButtonClick, littleButtonClick,
+} from './littleBigButtons';
 import { historyResolver } from '../routing/routing';
 import { Location, Product } from '../types';
 import { productsObj } from '../utilities/data';
-import {filtering, getKeys} from '../logic/filter';
-import {getPageHtml, showFiltered} from '../main-page/content';
-import {categoriesClick, keysCategoriesFilter} from "./categories";
-import {brandsClick, keysBrandsFilter} from "./brands";
-import {searchInput, searchValue} from "./search";
-import {sortChange, sortOption} from "./sort";
-import {productCardsClick} from "./productCards";
-import {cartClick} from "./cart";
-import {rangeMinMaxInput} from "./rangeMinMax";
+import { filtering, getKeys } from '../logic/filter';
+import { getPageHtml } from '../main-page/content';
+import { categoriesClick } from './categories';
+import { brandsClick } from './brands';
+import { searchInput } from './search';
+import { sortChange } from './sort';
+import { productCardsClick } from './productCards';
+import { cartClick } from './cart';
+import { rangeMinMaxInput } from './rangeMinMax';
 
 function zeroingStylesPage(): void {
+  const categories = document.querySelectorAll('.category') as NodeListOf<HTMLElement>;
+  const brands = document.querySelectorAll('.brand') as NodeListOf<HTMLElement>;
+  const sort = document.querySelector('#sort') as HTMLSelectElement;
+  const search = document.querySelector('#search') as HTMLInputElement;
+
   for (let i = 0; i < categories.length; i++) {
     categories[i].classList.remove('activeCategoryBrand');
   }
@@ -97,7 +98,7 @@ export function mainClick(main: HTMLElement): void {
     historyResolver(Location.main);
 
     // filter and search
-    removingLocalStorage()
+    removingLocalStorage();
 
     // Отрисовка
     rendering();

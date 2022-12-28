@@ -1,4 +1,3 @@
-import { arr } from '../main-page/content';
 import { Product } from '../types';
 
 const arrCart: Product[] = [];
@@ -23,7 +22,7 @@ export function addToCardClick(filterArray: Product[], addToCard: NodeListOf<HTM
   for (let i = 0; i < addToCard.length; i++) {
     addToCard[i].addEventListener('click', (): void => {
       if (arrCart.includes(filterArray[i])) {
-        let a = arrCart.indexOf(filterArray[i]);
+        const a = arrCart.indexOf(filterArray[i]);
         arrCart.splice(a, 1);
         addToCard[i].innerHTML = 'Add to cart';
         total -= filterArray[i].price;
@@ -45,7 +44,7 @@ export function cartBtnClick(cartBtn: HTMLElement) {
   const cardHeaderTotal = document.querySelector('.cart-header__total span') as HTMLElement;
   cartBtn.addEventListener('click', (): void => {
     mainPage.innerHTML = '';
-    let cartContent = `
+    const cartContent = `
       <div class="main-page__cart cart-page">
         <div class="cart-page__products products-cart">
           <h2 class="products-cart__title">Products In Cart</h2>
@@ -70,7 +69,7 @@ export function cartBtnClick(cartBtn: HTMLElement) {
     const itemCartBlock = document.querySelector('.item-cart') as HTMLElement;
 
     for (let i = 0; i < arrCart.length; i++) {
-      let itemCart = `
+      const itemCart = `
         <div class="item-cart__item">
           <div class="item-cart__number"></div>
           <div class="item-cart__image">
@@ -108,7 +107,7 @@ export function cartBtnClick(cartBtn: HTMLElement) {
       for (let i = 0; i < num.length; i++) {
         num[i].innerHTML = (i + 1).toString();
       }
-      if (num.length == 0) {
+      if (num.length === 0) {
         title.innerHTML = 'Cart is Empty';
       }
     }
@@ -123,7 +122,7 @@ export function cartBtnClick(cartBtn: HTMLElement) {
 
     for (let i = 0; i < cartItem.length; i++) {
       cartItem[i].addEventListener('click', amount);
-      let count = parseInt(cartCount[i].innerHTML);
+      let count = parseInt(cartCount[i].innerHTML, 10);
 
       function amount(e: Event): void {
         if (e.target == plus[i]) {
@@ -133,16 +132,16 @@ export function cartBtnClick(cartBtn: HTMLElement) {
           totalCart(total);
         }
         if (e.target == minus[i]) {
-          if (parseInt(cartCount[i].innerHTML) > 1) {
+          if (parseInt(cartCount[i].innerHTML, 10) > 1) {
             count--;
             cartCount[i].innerHTML = count.toString();
-            total -= parseInt(cartPrice[i].innerHTML);
+            total -= parseInt(cartPrice[i].innerHTML, 10);
             totalCart(total);
-          } else if (parseInt(cartCount[i].innerHTML) === 1) {
+          } else if (parseInt(cartCount[i].innerHTML, 10) === 1) {
             cartItem[i].remove();
             removeCartCount();
             numCart();
-            total -= parseInt(cartPrice[i].innerHTML);
+            total -= parseInt(cartPrice[i].innerHTML, 10);
             totalCart(total);
           }
         }
@@ -155,4 +154,3 @@ export function cartBtnClick(cartBtn: HTMLElement) {
     }
   });
 }
-

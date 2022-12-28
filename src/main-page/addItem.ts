@@ -1,5 +1,6 @@
 export class AddItem {
   array: string[];
+
   constructor(array: string[]) {
     this.array = array;
   }

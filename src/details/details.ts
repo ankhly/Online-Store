@@ -1,7 +1,5 @@
-import { arr } from '../main-page/content';
-import { mainPage } from '../utilities/nodes';
-import { Location, Product } from "../types";
-import { historyResolver } from "../routing/routing";
+import { Location, Product } from '../types';
+import { historyResolver } from '../routing/routing';
 
 export function productCardsDetails(filterArray: Product[], productCards: NodeListOf<HTMLElement>): void {
   for (let i = 0; i < productCards.length; i++) {
@@ -88,7 +86,7 @@ export function productCardsDetails(filterArray: Product[], productCards: NodeLi
       blockFoto.addEventListener('click', (e: Event): void => {
         const otherFotos = document.querySelectorAll('.images-details__image img') as NodeListOf<Element>;
         for (let j = 0; j < otherFotos.length; j++) {
-          let otherFoto = otherFotos[j];
+          const otherFoto = otherFotos[j];
           if (e.target === otherFoto) {
             const clickFoto = e.target as HTMLImageElement;
             mainFoto.src = clickFoto.src;

@@ -2,7 +2,6 @@ import './style.scss';
 import './main-page/content';
 
 import {
-  addToCard,
   categories,
   brands,
   sort,
@@ -16,15 +15,15 @@ import {
   rangeMins,
   rangeMaxs,
   valueFroms,
-  valueTos, cartBtn,
+  valueTos,
 } from './utilities/nodes';
 import {
   categoriesClick,
   categoriesQueryString, keysCategoriesFilter,
 } from './components/categories';
-import {brandsClick, brandsQueryString, keysBrandsFilter} from './components/brands';
+import { brandsClick, brandsQueryString, keysBrandsFilter } from './components/brands';
 import { sortChange, sortOption, sortQueryString } from './components/sort';
-import {searchInput, searchQueryString, searchValue} from './components/search';
+import { searchInput, searchQueryString, searchValue } from './components/search';
 import {
   bigButtonClick,
   littleButtonClick,
@@ -34,10 +33,8 @@ import { mainClick, resetClick } from './components/resets';
 import { productCardsClick } from './components/productCards';
 import { cartClick } from './components/cart';
 import { rangeMinMaxInput } from './components/rangeMinMax';
-import { productCardsDetails } from './details/details';
-import {addToCardClick, cartBtnClick} from './cart/cart';
-import {filtering} from "./logic/filter";
-import {Product} from "./types";
+import { filtering } from './logic/filter';
+import { Product } from './types';
 import { productsObj } from './utilities/data';
 
 // Отрисовка

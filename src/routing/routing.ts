@@ -2,7 +2,7 @@ import { Location } from '../types';
 
 let storageLocationCategoriesFlag: string | null = localStorage.getItem('locationCategoriesFlag');
 let locationCategoriesFlag: string | null = storageLocationCategoriesFlag || 'true';
-let storageLocationBrandsFlag: string | null = localStorage.getItem('locationBrandsFlag'); // locationCategoriesFlag Исправил
+let storageLocationBrandsFlag: string | null = localStorage.getItem('locationBrandsFlag');
 let locationBrandsFlag: string | null = storageLocationBrandsFlag || 'true';
 
 let locationStringCategories: string = localStorage.getItem('locationStringCategories') || '';
@@ -49,7 +49,7 @@ function zeroingLocationStrings(): void {
   locationCategoriesFlagTrue();
   locationBrandsFlagTrue();
 
-  // localStorage.clear(); Новое
+  // localStorage.clear();
   localStorage.removeItem('locationCategoriesFlag');
   localStorage.removeItem('locationBrandsFlag');
   localStorage.removeItem('locationStringCategories');
