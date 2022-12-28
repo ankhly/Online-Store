@@ -42,6 +42,10 @@ function removingLocalStorage() {
   localStorage.removeItem('keysBrandsFilter');
   localStorage.removeItem('searchValue');
   localStorage.removeItem('sortOption');
+  // обнуление при перезагрузке
+  localStorage.removeItem('countCart');
+  localStorage.removeItem('arrCart');
+  localStorage.removeItem('total');
 }
 
 function rendering() {
@@ -54,8 +58,6 @@ function rendering() {
   const brandsNode = document.querySelectorAll('.brand') as NodeListOf<HTMLElement>;
   const sortNode = document.querySelector('#sort') as HTMLSelectElement;
   const searchNode = document.querySelector('#search') as HTMLInputElement;
-  const productCards = document.querySelectorAll('.buttons-item__details') as NodeListOf<HTMLElement>;
-  const cart = document.querySelector('#cart') as HTMLElement;
   const mainNode = document.querySelector('#main') as HTMLElement;
   const reset = document.querySelector('#reset') as HTMLElement;
   const littleButton = document.querySelector('.view-head__big') as HTMLElement;

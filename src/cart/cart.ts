@@ -1,25 +1,31 @@
 import { Location, Product } from '../types';
 import { historyResolver } from '../routing/routing';
 
-const arrCart: Product[] = [];
+let arrCart: Product[] = JSON.parse(localStorage.getItem('arrCart')!) || [];
 
-let total = 0;
-let countCart = 0;
+let total: number = Number(localStorage.getItem('total')) || 0;
+let countCart: number = Number(localStorage.getItem('countCart')) || 0;
 
 function addCartCount(): void {
   const cardIcon = document.querySelector('.cart-header__icon span') as HTMLElement;
+  countCart = Number(localStorage.getItem('countCart')) || 0;
   countCart++;
   cardIcon.innerHTML = countCart.toString();
+  localStorage.setItem('countCart', `${countCart}`);
 }
 
 function removeCartCount(): void {
   const cardIcon = document.querySelector('.cart-header__icon span') as HTMLElement;
+  countCart = Number(localStorage.getItem('countCart')) || 0;
   countCart--;
   cardIcon.innerHTML = countCart.toString();
+  localStorage.setItem('countCart', `${countCart}`);
 }
 
 export function addToCardClick(filterArray: Product[], addToCard: NodeListOf<HTMLElement>): void {
   const cardHeaderTotal = document.querySelector('.cart-header__total span') as HTMLElement;
+  arrCart = JSON.parse(localStorage.getItem('arrCart')!) || [];
+  total = Number(localStorage.getItem('total')) || 0;
   for (let i = 0; i < addToCard.length; i++) {
     addToCard[i].addEventListener('click', (): void => {
       if (arrCart.includes(filterArray[i])) {
@@ -29,12 +35,15 @@ export function addToCardClick(filterArray: Product[], addToCard: NodeListOf<HTM
         total -= filterArray[i].price;
         cardHeaderTotal.innerHTML = total.toString();
         removeCartCount();
+        localStorage.setItem('total', `${total}`);
       } else {
         arrCart.push(filterArray[i]);
         addToCard[i].innerHTML = 'Drop from cart';
         total += filterArray[i].price;
         cardHeaderTotal.innerHTML = total.toString();
         addCartCount();
+        localStorage.setItem('arrCart', JSON.stringify(arrCart));
+        localStorage.setItem('total', `${total}`);
       }
     });
   }
@@ -71,6 +80,7 @@ export function cartBtnClick(cartBtn: HTMLElement): void {
 
     const itemCartBlock = document.querySelector('.item-cart') as HTMLElement;
 
+    arrCart = JSON.parse(localStorage.getItem('arrCart')!) || [];
     for (let i = 0; i < arrCart.length; i++) {
       const itemCart = `
         <div class="item-cart__item">
@@ -128,24 +138,27 @@ export function cartBtnClick(cartBtn: HTMLElement): void {
       let count = parseInt(cartCount[i].innerHTML, 10);
 
       function amount(e: Event): void {
-        if (e.target == plus[i]) {
+        if (e.target === plus[i]) {
           count++;
           cartCount[i].innerHTML = count.toString();
           total += parseInt(cartPrice[i].innerHTML);
           totalCart(total);
+          localStorage.setItem('total', `${total}`);
         }
-        if (e.target == minus[i]) {
+        if (e.target === minus[i]) {
           if (parseInt(cartCount[i].innerHTML, 10) > 1) {
             count--;
             cartCount[i].innerHTML = count.toString();
             total -= parseInt(cartPrice[i].innerHTML, 10);
             totalCart(total);
+            localStorage.setItem('total', `${total}`);
           } else if (parseInt(cartCount[i].innerHTML, 10) === 1) {
             cartItem[i].remove();
             removeCartCount();
             numCart();
             total -= parseInt(cartPrice[i].innerHTML, 10);
             totalCart(total);
+            localStorage.setItem('total', `${total}`);
           }
         }
       }

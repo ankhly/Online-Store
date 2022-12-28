@@ -86,6 +86,10 @@ export function filtering(
     const productCards = document.querySelectorAll('.buttons-item__details') as NodeListOf<HTMLElement>;
     productCardsDetails(searchFilterArray, productCards);
 
+    // обнуление при перезагрузке
+    localStorage.removeItem('countCart');
+    localStorage.removeItem('arrCart');
+    localStorage.removeItem('total');
     const addToCard = document.querySelectorAll('.buttons-item__add') as NodeListOf<HTMLElement>;
     addToCardClick(searchFilterArray, addToCard);
 
