@@ -1,14 +1,16 @@
 import {
   bigButton,
-  buttonsItems,
-  descriptionItems,
   littleButton,
-  pageCatalog,
 } from '../utilities/nodes';
 import { historyResolver } from '../routing/routing';
 import { Location } from '../types';
 
-export function addBigButtonClass(): void {
+// новое
+export function addBigButtonClass(
+  descriptionItems: NodeListOf<Element>,
+  pageCatalog: HTMLElement,
+  buttonsItems: NodeListOf<Element>,
+): void {
   bigButton.classList.add('activeLittleBig');
   littleButton.classList.remove('activeLittleBig');
   for (let i = 0; i < descriptionItems.length; i++) {
@@ -20,7 +22,12 @@ export function addBigButtonClass(): void {
   }
 }
 
-function addLittleButtonClass(): void {
+// новое
+export function addLittleButtonClass(
+  descriptionItems: NodeListOf<Element>,
+  pageCatalog: HTMLElement,
+  buttonsItems: NodeListOf<Element>,
+): void {
   littleButton.classList.add('activeLittleBig');
   bigButton.classList.remove('activeLittleBig');
   for (let i = 0; i < descriptionItems.length; i++) {
@@ -36,7 +43,11 @@ export function littleButtonClick(little: HTMLElement): void {
   little.addEventListener('click', () : void => {
     const prefix: string = 'false';
 
-    addLittleButtonClass();
+    const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
+    const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
+    const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
+
+    addLittleButtonClass(descriptionItems, pageCatalog, buttonsItems);
 
     historyResolver(Location.littleBig, prefix);
   });
@@ -46,16 +57,37 @@ export function bigButtonClick(big: HTMLElement): void {
   big.addEventListener('click', () : void => {
     const prefix: string = 'true';
 
-    addBigButtonClass();
+    const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
+    const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
+    const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
+
+    addBigButtonClass(descriptionItems, pageCatalog, buttonsItems);
 
     historyResolver(Location.littleBig, prefix);
   });
 }
 
+// новое
 export function littleBigButtonsQueryString(urlParams: URLSearchParams): void {
+  const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
+  const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
+  const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
   if (urlParams.getAll('big').join('') === 'false') {
-    addLittleButtonClass();
+    addLittleButtonClass(descriptionItems, pageCatalog, buttonsItems);
   } else {
-    addBigButtonClass();
+    addBigButtonClass(descriptionItems, pageCatalog, buttonsItems);
+  }
+}
+
+// saveView
+export function saveView(): void {
+  const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
+  const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
+  const buttonsItems = document.querySelectorAll('.buttons-item') as NodeListOf<Element>;
+
+  if (littleButton.className.includes('activeLittleBig')) {
+    addLittleButtonClass(descriptionItems, pageCatalog, buttonsItems);
+  } else {
+    addBigButtonClass(descriptionItems, pageCatalog, buttonsItems);
   }
 }

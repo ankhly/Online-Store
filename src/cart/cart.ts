@@ -1,11 +1,5 @@
 import { arr } from '../main-page/content';
 import { Product } from '../types';
-import {
-  cartBtn,
-  mainPage,
-  cardIcon,
-  cardHeaderTotal,
-} from '../utilities/nodes';
 
 const arrCart: Product[] = [];
 
@@ -13,16 +7,19 @@ let total = 0;
 let countCart = 0;
 
 function addCartCount(): void {
+  const cardIcon = document.querySelector('.cart-header__icon span') as HTMLElement;
   countCart++;
   cardIcon.innerHTML = countCart.toString();
 }
 
 function removeCartCount(): void {
+  const cardIcon = document.querySelector('.cart-header__icon span') as HTMLElement;
   countCart--;
   cardIcon.innerHTML = countCart.toString();
 }
 
 export function addToCardClick(addToCard: NodeListOf<HTMLElement>): void {
+  const cardHeaderTotal = document.querySelector('.cart-header__total span') as HTMLElement;
   for (let i = 0; i < addToCard.length; i++) {
     addToCard[i].addEventListener('click', (): void => {
       if (arrCart.includes(arr[i])) {
@@ -43,9 +40,12 @@ export function addToCardClick(addToCard: NodeListOf<HTMLElement>): void {
   }
 }
 
-cartBtn.addEventListener('click', (): void => {
-  mainPage.innerHTML = '';
-  let cartContent = `  <div class="main-page__cart cart-page">
+export function cartBtnClick(cartBtn: HTMLElement) {
+  const mainPage = document.querySelector('.main-page__body') as HTMLElement;
+  const cardHeaderTotal = document.querySelector('.cart-header__total span') as HTMLElement;
+  cartBtn.addEventListener('click', (): void => {
+    mainPage.innerHTML = '';
+    let cartContent = `  <div class="main-page__cart cart-page">
 <div class="cart-page__products products-cart">
 	<h2 class="products-cart__title">Products In Cart</h2>
 	<div class="products-cart__items item-cart">
@@ -63,12 +63,12 @@ cartBtn.addEventListener('click', (): void => {
 	<button class="summary-cart__buy">Buy now</button>
 </div>
 </div>`;
-  mainPage.insertAdjacentHTML('beforeend', cartContent);
+    mainPage.insertAdjacentHTML('beforeend', cartContent);
 
-  const itemCartBlock = document.querySelector('.item-cart') as HTMLElement;
+    const itemCartBlock = document.querySelector('.item-cart') as HTMLElement;
 
-  for (let i = 0; i < arrCart.length; i++) {
-    let itemCart = `<div class="item-cart__item">
+    for (let i = 0; i < arrCart.length; i++) {
+      let itemCart = `<div class="item-cart__item">
 		<div class="item-cart__number"></div>
 		<div class="item-cart__image">
 			<img src="${arrCart[i].thumbnail}" alt="" />
@@ -91,85 +91,87 @@ cartBtn.addEventListener('click', (): void => {
 			<div class="control-cart__price">€ <span>${arrCart[i].price}</span></div>
 		</div>
 	</div>`;
-    itemCartBlock.insertAdjacentHTML('beforeend', itemCart);
-  }
-
-  function numCart(): void {
-    const num = document.querySelectorAll(
-      '.item-cart__number'
-    ) as NodeListOf<Element>;
-    const title = document.querySelector(
-      '.products-cart__title'
-    ) as HTMLElement;
-    const summaryProducts = document.querySelector(
-      '.summary-cart__products span'
-    ) as HTMLElement;
-
-    summaryProducts.innerHTML = num.length.toString();
-
-    for (let i = 0; i < num.length; i++) {
-      num[i].innerHTML = (i + 1).toString();
+      itemCartBlock.insertAdjacentHTML('beforeend', itemCart);
     }
-    if (num.length == 0) {
-      title.innerHTML = 'Cart is Empty';
-    }
-  }
-  numCart();
 
-  const cartItem = document.querySelectorAll(
-    '.item-cart__item'
-  ) as NodeListOf<Element>;
+    function numCart(): void {
+      const num = document.querySelectorAll(
+        '.item-cart__number'
+      ) as NodeListOf<Element>;
+      const title = document.querySelector(
+        '.products-cart__title'
+      ) as HTMLElement;
+      const summaryProducts = document.querySelector(
+        '.summary-cart__products span'
+      ) as HTMLElement;
 
-  const plus = document.querySelectorAll(
-    '.control-cart__plus'
-  ) as NodeListOf<Element>;
+      summaryProducts.innerHTML = num.length.toString();
 
-  const minus = document.querySelectorAll(
-    '.control-cart__minus'
-  ) as NodeListOf<Element>;
-
-  const cartCount = document.querySelectorAll(
-    '.control-cart__count'
-  ) as NodeListOf<Element>;
-
-  const cartPrice = document.querySelectorAll(
-    '.control-cart__price span'
-  ) as NodeListOf<Element>;
-
-  const sumTotal = document.querySelector(
-    '.summary-cart__total span'
-  ) as HTMLElement;
-
-  for (let i = 0; i < cartItem.length; i++) {
-    cartItem[i].addEventListener('click', amount);
-    let count = parseInt(cartCount[i].innerHTML);
-
-    function amount(e: Event): void {
-      if (e.target == plus[i]) {
-        count++;
-        cartCount[i].innerHTML = count.toString();
-        total += parseInt(cartPrice[i].innerHTML);
-        totalCart(total);
+      for (let i = 0; i < num.length; i++) {
+        num[i].innerHTML = (i + 1).toString();
       }
-      if (e.target == minus[i]) {
-        if (parseInt(cartCount[i].innerHTML) > 1) {
-          count--;
+      if (num.length == 0) {
+        title.innerHTML = 'Cart is Empty';
+      }
+    }
+    numCart();
+
+    const cartItem = document.querySelectorAll(
+      '.item-cart__item'
+    ) as NodeListOf<Element>;
+
+    const plus = document.querySelectorAll(
+      '.control-cart__plus'
+    ) as NodeListOf<Element>;
+
+    const minus = document.querySelectorAll(
+      '.control-cart__minus'
+    ) as NodeListOf<Element>;
+
+    const cartCount = document.querySelectorAll(
+      '.control-cart__count'
+    ) as NodeListOf<Element>;
+
+    const cartPrice = document.querySelectorAll(
+      '.control-cart__price span'
+    ) as NodeListOf<Element>;
+
+    const sumTotal = document.querySelector(
+      '.summary-cart__total span'
+    ) as HTMLElement;
+
+    for (let i = 0; i < cartItem.length; i++) {
+      cartItem[i].addEventListener('click', amount);
+      let count = parseInt(cartCount[i].innerHTML);
+
+      function amount(e: Event): void {
+        if (e.target == plus[i]) {
+          count++;
           cartCount[i].innerHTML = count.toString();
-          total -= parseInt(cartPrice[i].innerHTML);
+          total += parseInt(cartPrice[i].innerHTML);
           totalCart(total);
-        } else if (parseInt(cartCount[i].innerHTML) === 1) {
-          cartItem[i].remove();
-          removeCartCount();
-          numCart();
-          total -= parseInt(cartPrice[i].innerHTML);
-          totalCart(total);
+        }
+        if (e.target == minus[i]) {
+          if (parseInt(cartCount[i].innerHTML) > 1) {
+            count--;
+            cartCount[i].innerHTML = count.toString();
+            total -= parseInt(cartPrice[i].innerHTML);
+            totalCart(total);
+          } else if (parseInt(cartCount[i].innerHTML) === 1) {
+            cartItem[i].remove();
+            removeCartCount();
+            numCart();
+            total -= parseInt(cartPrice[i].innerHTML);
+            totalCart(total);
+          }
         }
       }
     }
-  }
-  totalCart(total);
-  function totalCart(sum: number): void {
-    sumTotal.innerHTML = sum.toString();
-    cardHeaderTotal.innerHTML = sum.toString();
-  }
-});
+    totalCart(total);
+    function totalCart(sum: number): void {
+      sumTotal.innerHTML = sum.toString();
+      cardHeaderTotal.innerHTML = sum.toString();
+    }
+  });
+}
+

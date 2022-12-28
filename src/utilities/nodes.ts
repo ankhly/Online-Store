@@ -55,7 +55,7 @@ export const valueTos = document.querySelectorAll(
 //Детали товара
 export const mainPage = document.querySelector(
   '.main-page__body'
-) as HTMLBRElement;
+) as HTMLElement;
 
 // add to cart buttons
 
@@ -66,11 +66,11 @@ export const addToCard = document.querySelectorAll(
 //cart button
 export const cartBtn = document.querySelector(
   '.cart-header__icon'
-) as HTMLBRElement;
-
-export const cardIcon = document.querySelector(
-  '.cart-header__icon span'
 ) as HTMLElement;
+
+// export const cardIcon = document.querySelector(
+//   '.cart-header__icon span'
+// ) as HTMLElement;
 
 export const cardHeaderTotal = document.querySelector(
   '.cart-header__total span'

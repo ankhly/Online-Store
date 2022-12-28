@@ -16,26 +16,33 @@ import {
   rangeMins,
   rangeMaxs,
   valueFroms,
-  valueTos,
+  valueTos, cartBtn,
 } from './utilities/nodes';
 import {
   categoriesClick,
-  categoriesQueryString,
+  categoriesQueryString, keysCategoriesFilter,
 } from './components/categories';
-import { brandsClick, brandsQueryString } from './components/brands';
-import { sortChange, sortQueryString } from './components/sort';
-import { searchInput, searchQueryString } from './components/search';
+import {brandsClick, brandsQueryString, keysBrandsFilter} from './components/brands';
+import { sortChange, sortOption, sortQueryString } from './components/sort';
+import {searchInput, searchQueryString, searchValue} from './components/search';
 import {
   bigButtonClick,
   littleButtonClick,
-  littleBigButtonsQueryString,
+  littleBigButtonsQueryString, saveView,
 } from './components/littleBigButtons';
 import { mainClick, resetClick } from './components/resets';
 import { productCardsClick } from './components/productCards';
 import { cartClick } from './components/cart';
 import { rangeMinMaxInput } from './components/rangeMinMax';
 import { productCardsDetails } from './details/details';
-import { addToCardClick } from './cart/cart';
+import {addToCardClick, cartBtnClick} from './cart/cart';
+import {filtering} from "./logic/filter";
+import {Product} from "./types";
+import { productsObj } from './utilities/data';
+
+// Отрисовка
+const arr: Product[] = productsObj.products;
+filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption);
 
 // Выбор категории
 categoriesClick(categories);
@@ -75,6 +82,20 @@ function queryStringLogic(): void {
   searchQueryString(search, urlParams);
   // queryStringLogicLittleBig
   littleBigButtonsQueryString(urlParams);
+
+  // filter and search
+  const keysCategoriesFilterQueryString = urlParams.getAll('categories').join('').split('↕').splice(1);
+  const keysBrandsFilterQueryString = urlParams.getAll('brands').join('').split('↕').splice(1);
+  const keySearchQueryString = urlParams.getAll('search').join('');
+  const keySortQueryString = urlParams.getAll('sort').join('');
+  localStorage.setItem('keysCategoriesFilter', JSON.stringify(keysCategoriesFilterQueryString));
+  localStorage.setItem('keysBrandsFilter', JSON.stringify(keysBrandsFilterQueryString));
+  localStorage.setItem('searchValue', keySearchQueryString);
+  localStorage.setItem('sortOption', keySortQueryString);
+  filtering(arr, keysCategoriesFilterQueryString, keysBrandsFilterQueryString, keySearchQueryString, keySortQueryString);
+
+  // чтобы сохранялся вид
+  saveView();
 }
 
 // Стрелки вперед и назад in queryString
@@ -92,3 +113,5 @@ productCardsDetails(productCards);
 
 //add to cart click buttons
 addToCardClick(addToCard);
+
+cartBtnClick(cartBtn);
