@@ -10,6 +10,8 @@ let locationStringBrands: string = localStorage.getItem('locationStringBrands') 
 let locationStringSorts: string = localStorage.getItem('locationStringSorts') || '';
 let locationStringSearch: string = localStorage.getItem('locationStringSearch') || '';
 let locationStringLittleBig: string = localStorage.getItem('locationStringLittleBig') || '';
+let locationStringPrice: string = localStorage.getItem('locationStringPrice') || '';
+let locationStringStock: string = localStorage.getItem('locationStringStock') || '';
 let locationString: string = '';
 
 export function locationBrandsFlagTrue(): void {
@@ -45,6 +47,8 @@ function zeroingLocationStrings(): void {
   locationStringSorts = '';
   locationStringSearch = '';
   locationStringLittleBig = '';
+  locationStringPrice = '';
+  locationStringStock = '';
 
   locationCategoriesFlagTrue();
   locationBrandsFlagTrue();
@@ -57,6 +61,8 @@ function zeroingLocationStrings(): void {
   localStorage.removeItem('locationStringSorts');
   localStorage.removeItem('locationStringSearch');
   localStorage.removeItem('locationStringLittleBig');
+  localStorage.removeItem('locationStringPrice');
+  localStorage.removeItem('locationStringStock');
 }
 
 export const historyResolver = (location: string, prefix?: string, activeFlag?: boolean): void => {
@@ -119,14 +125,25 @@ export const historyResolver = (location: string, prefix?: string, activeFlag?: 
     locationStringLittleBig = `&${location}=${prefix}`;
   }
 
+  // добавил
+  if (location === Location.price) {
+    locationStringPrice = `&${location}=${prefix}`;
+  }
+
+  if (location === Location.stock) {
+    locationStringStock = `&${location}=${prefix}`;
+  }
+
   localStorage.setItem('locationStringCategories', locationStringCategories);
   localStorage.setItem('locationStringBrands', locationStringBrands);
   localStorage.setItem('locationStringSorts', locationStringSorts);
   localStorage.setItem('locationStringSearch', locationStringSearch);
   localStorage.setItem('locationStringLittleBig', locationStringLittleBig);
+  localStorage.setItem('locationStringPrice', locationStringPrice);
+  localStorage.setItem('locationStringStock', locationStringStock);
 
   // Возможно можно написать условие при котором будет меняться порядок (Сложно);
-  locationString = `/?${localStorage.getItem('locationStringCategories')}${localStorage.getItem('locationStringBrands')}${localStorage.getItem('locationStringSorts')}${localStorage.getItem('locationStringSearch')}${localStorage.getItem('locationStringLittleBig')}`;
+  locationString = `/?${localStorage.getItem('locationStringCategories')}${localStorage.getItem('locationStringBrands')}${localStorage.getItem('locationStringSorts')}${localStorage.getItem('locationStringSearch')}${localStorage.getItem('locationStringLittleBig')}${localStorage.getItem('locationStringPrice')}${localStorage.getItem('locationStringStock')}`;
 
   if (location === Location.detail) {
     locationString = `/?${location}/${prefix}`;

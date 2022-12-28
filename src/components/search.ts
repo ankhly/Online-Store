@@ -3,18 +3,25 @@ import { Location, Product } from '../types';
 import { filtering } from '../logic/filter';
 import { productsObj } from '../utilities/data';
 import { saveView } from './littleBigButtons';
-import { sortOption } from './sort';
+import { showFound, showNumbersBrandsCategories } from '../main-page/content';
 
 // search
 const arr: Product[] = productsObj.products;
 export let searchValue: string = localStorage.getItem('searchValue') || '';
-let keysCategoriesFilter: string[] = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
 let keysBrandsFilter: string[] = JSON.parse(localStorage.getItem('keysBrandsFilter')!) || [];
+let keysCategoriesFilter: string[] = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
+let keysPrice: string[] = JSON.parse(localStorage.getItem('keysPrice')!) || [];
+let keysStock: string[] = JSON.parse(localStorage.getItem('keysStock')!) || [];
+let sortOption: string = localStorage.getItem('sortOption') || '';
 
 export function searchInput(search: HTMLInputElement): void {
   search.addEventListener('input', (): void => {
-    keysCategoriesFilter = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
     keysBrandsFilter = JSON.parse(localStorage.getItem('keysBrandsFilter')!) || [];
+    keysCategoriesFilter = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
+    keysPrice = JSON.parse(localStorage.getItem('keysPrice')!) || [];
+    keysStock = JSON.parse(localStorage.getItem('keysStock')!) || [];
+    sortOption = localStorage.getItem('sortOption') || '';
+
     const prefix: string = search.value;
 
     historyResolver(Location.search, prefix);
@@ -23,10 +30,14 @@ export function searchInput(search: HTMLInputElement): void {
     searchValue = search.value;
     localStorage.setItem('searchValue', searchValue);
 
-    filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption);
+    filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption, keysPrice, keysStock);
 
     // чтобы сохранялся вид
     saveView();
+    // found
+    showFound();
+    // numbersCategories
+    showNumbersBrandsCategories();
   });
 }
 
