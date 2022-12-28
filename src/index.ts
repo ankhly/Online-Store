@@ -59,6 +59,12 @@ rangeMinMaxInput(rangeMins, rangeMaxs, valueFroms, valueTos);
 // queryStringLogic
 export function queryStringLogic(): void {
   const queryString: string = window.location.search;
+
+  // обнуляем при перезагрузке queryString если в карточках или деталях
+  if (queryString.includes('cart') || queryString.includes('product-details')) {
+    window.history.pushState({}, '', '/');
+  }
+
   const queryStringArray: string[] = queryString.split(/\?|&|%E2%86%95/);
   const urlParams: URLSearchParams = new URLSearchParams(queryString);
   // queryStringLogicCategories
