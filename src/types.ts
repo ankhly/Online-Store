@@ -29,3 +29,15 @@ export enum Location {
   cart = 'cart',
   main = '/',
 }
+
+export interface KeyCategory {
+  category: string;
+  selected: boolean;
+  flag: boolean;
+}
+
+export interface KeyBrand {
+  brand: string;
+  selected: boolean;
+  flag: boolean;
+}

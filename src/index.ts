@@ -2,13 +2,10 @@ import './style.scss';
 import './main-page/content';
 
 import {
-  addToCard,
   categories,
   brands,
   sort,
   search,
-  productCards,
-  cart,
   main,
   reset,
   littleButton,
@@ -20,22 +17,25 @@ import {
 } from './utilities/nodes';
 import {
   categoriesClick,
-  categoriesQueryString,
+  categoriesQueryString, keysCategoriesFilter,
 } from './components/categories';
-import { brandsClick, brandsQueryString } from './components/brands';
-import { sortChange, sortQueryString } from './components/sort';
-import { searchInput, searchQueryString } from './components/search';
+import { brandsClick, brandsQueryString, keysBrandsFilter } from './components/brands';
+import { sortChange, sortOption, sortQueryString } from './components/sort';
+import { searchInput, searchQueryString, searchValue } from './components/search';
 import {
   bigButtonClick,
   littleButtonClick,
-  littleBigButtonsQueryString,
+  littleBigButtonsQueryString, saveView,
 } from './components/littleBigButtons';
 import { mainClick, resetClick } from './components/resets';
-import { productCardsClick } from './components/productCards';
-import { cartClick } from './components/cart';
 import { rangeMinMaxInput } from './components/rangeMinMax';
-import { productCardsDetails } from './details/details';
-import { addToCardClick } from './cart/cart';
+import { filtering } from './logic/filter';
+import { Product } from './types';
+import { productsObj } from './utilities/data';
+
+// Отрисовка
+const arr: Product[] = productsObj.products;
+filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption);
 
 // Выбор категории
 categoriesClick(categories);
@@ -49,10 +49,6 @@ searchInput(search);
 littleButtonClick(littleButton);
 // // Кнопка много
 bigButtonClick(bigButton);
-// Выбор карточки
-productCardsClick(productCards);
-// Корзина
-cartClick(cart);
 // На главную (Сброс настроек)
 mainClick(main);
 // Сброс настроек
@@ -61,8 +57,14 @@ resetClick(reset);
 rangeMinMaxInput(rangeMins, rangeMaxs, valueFroms, valueTos);
 
 // queryStringLogic
-function queryStringLogic(): void {
+export function queryStringLogic(): void {
   const queryString: string = window.location.search;
+
+  // обнуляем при перезагрузке queryString если в карточках или деталях
+  if (queryString.includes('cart') || queryString.includes('product-details')) {
+    window.history.pushState({}, '', '/');
+  }
+
   const queryStringArray: string[] = queryString.split(/\?|&|%E2%86%95/);
   const urlParams: URLSearchParams = new URLSearchParams(queryString);
   // queryStringLogicCategories
@@ -75,6 +77,20 @@ function queryStringLogic(): void {
   searchQueryString(search, urlParams);
   // queryStringLogicLittleBig
   littleBigButtonsQueryString(urlParams);
+
+  // filter and search
+  const keysCategoriesFilterQueryString = urlParams.getAll('categories').join('').split('↕').splice(1);
+  const keysBrandsFilterQueryString = urlParams.getAll('brands').join('').split('↕').splice(1);
+  const keySearchQueryString = urlParams.getAll('search').join('');
+  const keySortQueryString = urlParams.getAll('sort').join('');
+  localStorage.setItem('keysCategoriesFilter', JSON.stringify(keysCategoriesFilterQueryString));
+  localStorage.setItem('keysBrandsFilter', JSON.stringify(keysBrandsFilterQueryString));
+  localStorage.setItem('searchValue', keySearchQueryString);
+  localStorage.setItem('sortOption', keySortQueryString);
+  filtering(arr, keysCategoriesFilterQueryString, keysBrandsFilterQueryString, keySearchQueryString, keySortQueryString);
+
+  // чтобы сохранялся вид
+  saveView();
 }
 
 // Стрелки вперед и назад in queryString
@@ -86,9 +102,3 @@ window.addEventListener('popstate', (event: PopStateEvent): void => {
 
 // Для ручного ввода URL
 queryStringLogic();
-
-//Детали товара
-productCardsDetails(productCards);
-
-//add to cart click buttons
-addToCardClick(addToCard);

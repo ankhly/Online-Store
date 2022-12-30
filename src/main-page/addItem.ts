@@ -1,7 +1,6 @@
-import { itemCategory, itemBrand } from './content';
-
 export class AddItem {
   array: string[];
+
   constructor(array: string[]) {
     this.array = array;
   }
@@ -14,7 +13,7 @@ export class AddItem {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  addCategories(array: string[]): void {
+  addCategories(array: string[], node: HTMLElement): void {
     for (let i = 0; i < array.length; i++) {
       const item = `
         <div class="item-sort__item category" data-category='${array[i]
@@ -24,12 +23,12 @@ export class AddItem {
           <div class="item-sort__amount">(5/5)</div>
         </div>
       `;
-      itemCategory.insertAdjacentHTML('beforeend', item);
+      node.insertAdjacentHTML('beforeend', item);
     }
   }
 
   // eslint-disable-next-line class-methods-use-this
-  addBrands(array: string[]): void {
+  addBrands(array: string[], node: HTMLElement): void {
     for (let i = 0; i < array.length; i++) {
       const item = `
         <div class="item-sort__item brand" data-brand='${array[i]
@@ -39,7 +38,7 @@ export class AddItem {
           <div class="item-sort__amount">(1/1)</div>
         </div>
       `;
-      itemBrand.insertAdjacentHTML('beforeend', item);
+      node.insertAdjacentHTML('beforeend', item);
     }
   }
 }

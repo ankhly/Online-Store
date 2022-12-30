@@ -2,7 +2,7 @@ import { Location } from '../types';
 
 let storageLocationCategoriesFlag: string | null = localStorage.getItem('locationCategoriesFlag');
 let locationCategoriesFlag: string | null = storageLocationCategoriesFlag || 'true';
-let storageLocationBrandsFlag: string | null = localStorage.getItem('locationCategoriesFlag');
+let storageLocationBrandsFlag: string | null = localStorage.getItem('locationBrandsFlag');
 let locationBrandsFlag: string | null = storageLocationBrandsFlag || 'true';
 
 let locationStringCategories: string = localStorage.getItem('locationStringCategories') || '';
@@ -49,7 +49,14 @@ function zeroingLocationStrings(): void {
   locationCategoriesFlagTrue();
   locationBrandsFlagTrue();
 
-  localStorage.clear();
+  // localStorage.clear();
+  localStorage.removeItem('locationCategoriesFlag');
+  localStorage.removeItem('locationBrandsFlag');
+  localStorage.removeItem('locationStringCategories');
+  localStorage.removeItem('locationStringBrands');
+  localStorage.removeItem('locationStringSorts');
+  localStorage.removeItem('locationStringSearch');
+  localStorage.removeItem('locationStringLittleBig');
 }
 
 export const historyResolver = (location: string, prefix?: string, activeFlag?: boolean): void => {
@@ -127,7 +134,7 @@ export const historyResolver = (location: string, prefix?: string, activeFlag?: 
   }
 
   if (location === Location.cart) {
-    locationString = `/${location}`;
+    locationString = `/?${location}`;
     zeroingLocationStrings();
   }
 
