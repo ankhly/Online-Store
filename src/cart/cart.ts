@@ -1,5 +1,6 @@
 import { Location, Product } from '../types';
 import { historyResolver } from '../routing/routing';
+import { btnClick } from '../forma/forma';
 
 let arrCart: Product[] = JSON.parse(localStorage.getItem('arrCart')!) || [];
 
@@ -77,12 +78,12 @@ export function cartBtnClick(cartBtn: HTMLElement): void {
             placeholder="Enter promo code"
             class="summary-cart__promo"
           />
-          <button class="summary-cart__buy">Buy now</button>
+          <button class="summary-cart__buy buy-now">Buy now</button>
         </div>
       </div>
     `;
     mainPage.insertAdjacentHTML('beforeend', cartContent);
-
+    btnClick();
     const itemCartBlock = document.querySelector('.item-cart') as HTMLElement;
 
     arrCart = JSON.parse(localStorage.getItem('arrCart')!) || [];

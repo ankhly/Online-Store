@@ -1,5 +1,6 @@
 import './style.scss';
 import './main-page/content';
+import './forma/forma';
 
 import {
   categories,
