@@ -3,18 +3,24 @@ import { Location, Product } from '../types';
 import { productsObj } from '../utilities/data';
 import { filtering } from '../logic/filter';
 import { saveView } from './littleBigButtons';
-import { searchValue } from './search';
 
 // sort
 const arr: Product[] = productsObj.products;
 export let sortOption: string = localStorage.getItem('sortOption') || '';
-let keysCategoriesFilter: string[] = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
 let keysBrandsFilter: string[] = JSON.parse(localStorage.getItem('keysBrandsFilter')!) || [];
+let keysCategoriesFilter: string[] = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
+let keysPrice: string[] = JSON.parse(localStorage.getItem('keysPrice')!) || [];
+let keysStock: string[] = JSON.parse(localStorage.getItem('keysStock')!) || [];
+let searchValue: string = localStorage.getItem('searchValue') || '';
 
 export function sortChange(sort: HTMLSelectElement): void {
   sort.addEventListener('change', (): void => {
-    keysCategoriesFilter = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
     keysBrandsFilter = JSON.parse(localStorage.getItem('keysBrandsFilter')!) || [];
+    keysCategoriesFilter = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
+    keysPrice = JSON.parse(localStorage.getItem('keysPrice')!) || [];
+    keysStock = JSON.parse(localStorage.getItem('keysStock')!) || [];
+    searchValue = localStorage.getItem('searchValue') || '';
+
     const prefix: string = sort.options[sort.selectedIndex].value;
 
     historyResolver(Location.sort, prefix);
@@ -23,7 +29,7 @@ export function sortChange(sort: HTMLSelectElement): void {
     sortOption = sort.options[sort.selectedIndex].value;
     localStorage.setItem('sortOption', sortOption);
 
-    filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption);
+    filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption, keysPrice, keysStock);
 
     // чтобы сохранялся вид
     saveView();

@@ -61,21 +61,23 @@ export function getPageHtml(): void {
                   <div class="aside-page__range range-aside">
                     <h3 class="range-aside__title title-aside">Price</h3>
                     <div class="range-aside__values">
-                      <div class="range-aside__from">€ <span>0.00</span></div>
-                      <div class="range-aside__to">€ <span>1749.00</span></div>
+                      <div class="range-aside__from price-from">€ <span>0.00</span></div>
+                      <div class="range-aside__to price-to">€ <span>1750.00</span></div>
                     </div>
                     <div class="range-aside__input multi-range">
                       <div class="multi-range__track"></div>
                       <input
                         type="range"
-                        class="multi-range__min"
+                        class="multi-range__min price-min"
+                        data-range="price"
                         max="100"
                         min="0"
                         value="0"
                       />
                       <input
                         type="range"
-                        class="multi-range__max"
+                        class="multi-range__max price-max"
+                        data-range="price"
                         max="100"
                         min="0"
                         value="100"
@@ -85,21 +87,23 @@ export function getPageHtml(): void {
                   <div class="aside-page__range range-aside">
                     <h3 class="range-aside__title title-aside">Stock</h3>
                     <div class="range-aside__values">
-                      <div class="range-aside__from"><span>0.00</span></div>
-                      <div class="range-aside__to"><span>150.00</span></div>
+                      <div class="range-aside__from stock-from"><span>0.00</span></div>
+                      <div class="range-aside__to stock-to"><span>150.00</span></div>
                     </div>
                     <div class="range-aside__input multi-range">
                       <div class="multi-range__track"></div>
                       <input
                         type="range"
-                        class="multi-range__min"
+                        class="multi-range__min stock-min"
+                        data-range="stock"
                         max="100"
                         min="0"
                         value="0"
                       />
                       <input
                         type="range"
-                        class="multi-range__max"
+                        class="multi-range__max stock-max"
+                        data-range="stock"
                         max="100"
                         min="0"
                         value="100"
@@ -123,7 +127,7 @@ export function getPageHtml(): void {
                       </select>
                     </div>
                     <div class="head-catalog__found">
-                      Found: <span>100</span>
+                      Found: <span id="found">${localStorage.getItem('found') || arr.length}</span>
                     </div>
                     <div class="head-catalog__search search-head">
                       <input
@@ -163,6 +167,20 @@ export function getPageHtml(): void {
   categories.addCategories(categorySort, itemCategory);
 }
 getPageHtml();
+
+// Копировать ссылку
+export function copyLink(): void {
+  const copy = document.querySelector('.buttons-aside__copy') as HTMLElement;
+  copy.addEventListener('click', (): void => {
+    const copyText = document.createElement('input') as HTMLInputElement;
+    copyText.value = window.location.href;
+    document.body.appendChild(copyText);
+    copyText.select();
+    document.execCommand('copy');
+    document.body.removeChild(copyText);
+  });
+}
+copyLink();
 
 export function showFiltered(filterArray: Product[]): void {
   const itemCatalog = document.querySelector('.item-catalog') as HTMLElement;
@@ -227,4 +245,29 @@ export function showNoProducts(): void {
   itemCatalog.innerHTML = '';
   const item = '<div>No Products Found</div>';
   itemCatalog.insertAdjacentHTML('beforeend', item);
+}
+
+// НОВОЕ
+export function showFound(): void {
+  const found = document.querySelector('#found') as HTMLElement;
+
+  found.innerHTML = `${localStorage.getItem('found') || arr.length}`;
+}
+
+export function showNumbersBrandsCategories(): void {
+  const amountCategory = document.querySelectorAll('.amount-category') as NodeListOf<HTMLElement>;
+  const allNumbersCategories = JSON.parse(localStorage.getItem('allNumbersCategories')!);
+  const currentNumbersCategories = JSON.parse(localStorage.getItem('currentNumbersCategories')!);
+
+  for (let i = 0; i < amountCategory.length; i++) {
+    amountCategory[i].innerHTML = `(${currentNumbersCategories[i]}/${allNumbersCategories[i]})`;
+  }
+
+  const amountBrand = document.querySelectorAll('.amount-brand') as NodeListOf<HTMLElement>;
+  const allNumbersBrands = JSON.parse(localStorage.getItem('allNumbersBrands')!);
+  const currentNumbersBrands = JSON.parse(localStorage.getItem('currentNumbersBrands')!);
+
+  for (let i = 0; i < amountBrand.length; i++) {
+    amountBrand[i].innerHTML = `(${currentNumbersBrands[i]}/${allNumbersBrands[i]})`;
+  }
 }

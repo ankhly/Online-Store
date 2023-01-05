@@ -1,13 +1,18 @@
-import { historyResolver, locationBrandsFlagFalse, locationBrandsFlagTrue } from '../routing/routing';
+import {
+  historyResolver, locationBrandsFlagFalse, locationBrandsFlagTrue
+} from '../routing/routing';
 import { KeyBrand, Location, Product } from '../types';
 import { filtering, keysBrands } from '../logic/filter';
 import { productsObj } from '../utilities/data';
 import { saveView } from './littleBigButtons';
+import { showFound, showNumbersBrandsCategories } from '../main-page/content';
 
 // for filter
 const arr: Product[] = productsObj.products;
 export let keysBrandsFilter: string[] = JSON.parse(localStorage.getItem('keysBrandsFilter')!) || [];
 let keysCategoriesFilter: string[] = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
+let keysPrice: string[] = JSON.parse(localStorage.getItem('keysPrice')!) || [];
+let keysStock: string[] = JSON.parse(localStorage.getItem('keysStock')!) || [];
 let searchValue: string = localStorage.getItem('searchValue') || '';
 let sortOption: string = localStorage.getItem('sortOption') || '';
 
@@ -16,6 +21,8 @@ export function brandsClick(brands: NodeListOf<HTMLElement>): void {
     const prefix: string = brands[i].dataset.brand!;
     brands[i].addEventListener('click', (): void => {
       keysCategoriesFilter = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
+      keysPrice = JSON.parse(localStorage.getItem('keysPrice')!) || [];
+      keysStock = JSON.parse(localStorage.getItem('keysStock')!) || [];
       searchValue = localStorage.getItem('searchValue') || '';
       sortOption = localStorage.getItem('sortOption') || '';
 
@@ -40,12 +47,14 @@ export function brandsClick(brands: NodeListOf<HTMLElement>): void {
       localStorage.setItem('keysBrands', JSON.stringify(keysBrands));
       localStorage.setItem('keysBrandsFilter', JSON.stringify(keysBrandsFilter));
 
-      // console.log(keysCategoriesFilter);
-      // console.log(keysBrandsFilter);
-      filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption);
+      filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption, keysPrice, keysStock);
 
       // чтобы сохранялся вид
       saveView();
+      // found
+      showFound();
+      // numbersBrands
+      showNumbersBrandsCategories();
     });
   }
 }
@@ -73,7 +82,6 @@ export function brandsQueryString(
           keysBrands[j].flag = true;
         }
       }
-      //
       brands[i].classList.add('activeCategoryBrand');
     } else {
       // filter
@@ -83,7 +91,6 @@ export function brandsQueryString(
           keysBrands[j].flag = false;
         }
       }
-      //
       brands[i].classList.remove('activeCategoryBrand');
     }
     classNameArrayBrands.push(brands[i].className);

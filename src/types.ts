@@ -27,6 +27,8 @@ export enum Location {
   search = 'search',
   littleBig = 'big',
   cart = 'cart',
+  price = 'price',
+  stock = 'stock',
   main = '/',
 }
 
@@ -40,4 +42,8 @@ export interface KeyBrand {
   brand: string;
   selected: boolean;
   flag: boolean;
+}
+
+export interface Accumulator {
+  [key: string]: number;
 }

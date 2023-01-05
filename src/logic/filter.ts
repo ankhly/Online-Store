@@ -1,4 +1,9 @@
-import { Product, KeyCategory, KeyBrand } from '../types';
+import {
+  Product,
+  KeyCategory,
+  KeyBrand,
+  Accumulator,
+} from '../types';
 import { productsObj } from '../utilities/data';
 import { showFiltered, showNoProducts } from '../main-page/content';
 import { productCardsDetails } from '../details/details';
@@ -42,56 +47,131 @@ export function getKeys(): void {
 // Получаем keys
 getKeys();
 
+export let allNumbersCategories: number[] = JSON.parse(localStorage.getItem('allNumbersCategories')!) || [];
+export let allNumbersBrands: number[] = JSON.parse(localStorage.getItem('allNumbersBrands')!) || [];
+
 export function filtering(
   array: Product[],
   keysCategoriesFilter: string[],
   keysBrandsFilter: string[],
   search: string,
   sort: string,
+  price: string[],
+  stock: string[],
 ) : void {
   let filterArray: Product[] = [];
-
   filterArray = array.filter((item: Product) => keysCategoriesFilter.some((key: string) => item.category === key) || keysBrandsFilter.some((key: string) => item.brand.toLowerCase().replace(/\s/g, '') === key)).length === 0
     ? array
     : array.filter((item: Product) => keysCategoriesFilter.some((key: string) => item.category === key) || keysBrandsFilter.some((key: string) => item.brand.toLowerCase().replace(/\s/g, '') === key));
-  let searchFilterArray: Product[] = [];
 
+  let searchFilterArray: Product[] = [];
   searchFilterArray = filterArray.filter((item: Product) => item.title.toLowerCase().includes(`${search.toLowerCase()}`) || item.category.toLowerCase().includes(`${search.toLowerCase()}`) || item.brand.toLowerCase().includes(`${search.toLowerCase()}`));
 
+  let searchFilterArrayPrice: Product[] = [];
+  searchFilterArrayPrice = searchFilterArray.filter((item: Product) => item.price > Number(price[0]) && item.price <= Number(price[1]));
+
+  let searchFilterArrayPriceStock: Product[] = [];
+  searchFilterArrayPriceStock = searchFilterArrayPrice.filter((item: Product) => item.stock > Number(stock[0]) && item.stock <= Number(stock[1]));
+
+  // found
+  localStorage.setItem('found', `${searchFilterArrayPriceStock.length}`);
+  // numbers Brands and Categories
+  const arrCategories: string[] = [];
+  const arrBrands: string[] = [];
+  for (let i = 0; i < arr.length; i++) {
+    arrBrands.push(arr[i].brand);
+    arrCategories.push(arr[i].category);
+  }
+
+  const searchFilterCategory: string[] = [];
+  const searchFilterBrands: string[] = [];
+  for (let i = 0; i < searchFilterArrayPriceStock.length; i++) {
+    searchFilterCategory.push(searchFilterArrayPriceStock[i].category);
+    searchFilterBrands.push(searchFilterArrayPriceStock[i].brand);
+  }
+
+  const newArrCategories = arrCategories.map((e: string) => e[0].toLocaleUpperCase() + e.slice(1).toLowerCase()).sort();
+  const newArrBrands = arrBrands.map((e: string) => e[0].toLocaleUpperCase() + e.slice(1).toLowerCase()).sort();
+  const newSearchFilterCategory = searchFilterCategory.map((e: string) => e[0].toLocaleUpperCase() + e.slice(1).toLowerCase()).sort();
+  const newSearchFilterBrands = searchFilterBrands.map((e: string) => e[0].toLocaleUpperCase() + e.slice(1).toLowerCase()).sort();
+
+  const objCategories = newArrCategories.reduce((acc: Accumulator, current: string) => {
+    acc[current] = (acc[current] || 0) + 1;
+    return acc;
+  }, {});
+
+  const objBrands = newArrBrands.reduce((acc: Accumulator, current: string) => {
+    acc[current] = (acc[current] || 0) + 1;
+    return acc;
+  }, {});
+
+  const objSearchFilterCategories = newSearchFilterCategory.reduce((acc: Accumulator, current: string) => {
+    acc[current] = (acc[current] || 0) + 1;
+    return acc;
+  }, {});
+
+  const objSearchFilterBrands = newSearchFilterBrands.reduce((acc: Accumulator, current: string) => {
+    acc[current] = (acc[current] || 0) + 1;
+    return acc;
+  }, {});
+
+  allNumbersCategories = Object.entries(objCategories).map((elemArray) => elemArray[1]);
+  allNumbersBrands = Object.entries(objBrands).map((elemArray) => elemArray[1]);
+
+  const currentNumbersCategories: number[] = Object.entries(objCategories).map((elemArray) => {
+    for (let i = 0; i < Object.entries(objSearchFilterCategories).length; i++) {
+      if (elemArray[0] === Object.entries(objSearchFilterCategories)[i][0]) {
+        return Object.entries(objSearchFilterCategories)[i][1];
+      }
+    }
+    return 0;
+  });
+
+  const currentNumbersBrands: number[] = Object.entries(objBrands).map((elemArray) => {
+    for (let i = 0; i < Object.entries(objSearchFilterBrands).length; i++) {
+      if (elemArray[0] === Object.entries(objSearchFilterBrands)[i][0]) {
+        return Object.entries(objSearchFilterBrands)[i][1];
+      }
+    }
+    return 0;
+  });
+
+  localStorage.setItem('allNumbersCategories', JSON.stringify(allNumbersCategories));
+  localStorage.setItem('allNumbersBrands', JSON.stringify(allNumbersBrands));
+  localStorage.setItem('currentNumbersCategories', JSON.stringify(currentNumbersCategories));
+  localStorage.setItem('currentNumbersBrands', JSON.stringify(currentNumbersBrands));
+
   switch (sort) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    case '': searchFilterArray;
+    case 'price-ASC': searchFilterArrayPriceStock.sort((a: Product, b: Product) => a.price - b.price);
       break;
-    case 'price-ASC': searchFilterArray.sort((a: Product, b: Product) => a.price - b.price);
+    case 'price-DESC': searchFilterArrayPriceStock.sort((a: Product, b: Product) => b.price - a.price);
       break;
-    case 'price-DESC': searchFilterArray.sort((a: Product, b: Product) => b.price - a.price);
+    case 'rating-ASC': searchFilterArrayPriceStock.sort((a: Product, b: Product) => a.rating - b.rating);
       break;
-    case 'rating-ASC': searchFilterArray.sort((a: Product, b: Product) => a.rating - b.rating);
+    case 'rating-DESC': searchFilterArrayPriceStock.sort((a: Product, b: Product) => b.rating - a.rating);
       break;
-    case 'rating-DESC': searchFilterArray.sort((a: Product, b: Product) => b.rating - a.rating);
+    case 'discount-ASC': searchFilterArrayPriceStock.sort((a: Product, b: Product) => a.discountPercentage - b.discountPercentage);
       break;
-    case 'discount-ASC': searchFilterArray.sort((a: Product, b: Product) => a.discountPercentage - b.discountPercentage);
-      break;
-    case 'discount-DESC': searchFilterArray.sort((a: Product, b: Product) => b.discountPercentage - a.discountPercentage);
+    case 'discount-DESC': searchFilterArrayPriceStock.sort((a: Product, b: Product) => b.discountPercentage - a.discountPercentage);
       break;
     default:
       break;
   }
 
-  if (searchFilterArray.length === 0) {
+  if (searchFilterArrayPriceStock.length === 0) {
     showNoProducts();
   } else {
-    showFiltered(searchFilterArray);
+    showFiltered(searchFilterArrayPriceStock);
 
     const productCards = document.querySelectorAll('.buttons-item__details') as NodeListOf<HTMLElement>;
-    productCardsDetails(searchFilterArray, productCards);
+    productCardsDetails(searchFilterArrayPriceStock, productCards);
 
     // обнуление при перезагрузке
     localStorage.removeItem('countCart');
     localStorage.removeItem('arrCart');
     localStorage.removeItem('total');
     const addToCard = document.querySelectorAll('.buttons-item__add') as NodeListOf<HTMLElement>;
-    addToCardClick(searchFilterArray, addToCard);
+    addToCardClick(searchFilterArrayPriceStock, addToCard);
 
     const cartBtn = document.querySelector('.cart-header__icon') as HTMLElement;
     cartBtnClick(cartBtn);

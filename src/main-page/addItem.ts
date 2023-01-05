@@ -1,3 +1,5 @@
+import { allNumbersBrands, allNumbersCategories } from '../logic/filter';
+
 export class AddItem {
   array: string[];
 
@@ -12,30 +14,32 @@ export class AddItem {
     return [...new Set(this.array)];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   addCategories(array: string[], node: HTMLElement): void {
+    const allNumbers = JSON.parse(localStorage.getItem('allNumbersCategories')!) || allNumbersCategories;
+    const currentNumbersCategories = JSON.parse(localStorage.getItem('currentNumbersCategories')!) || allNumbers;
     for (let i = 0; i < array.length; i++) {
       const item = `
         <div class="item-sort__item category" data-category='${array[i]
-          .toLowerCase()
-          .replace(/\s/g, '')}'>
+    .toLowerCase()
+    .replace(/\s/g, '')}'>
           <div class="item-sort__name">${array[i]}</div>
-          <div class="item-sort__amount">(5/5)</div>
+          <div class="item-sort__amount amount-category">(${currentNumbersCategories[i]}/${allNumbers[i]})</div>
         </div>
       `;
       node.insertAdjacentHTML('beforeend', item);
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   addBrands(array: string[], node: HTMLElement): void {
+    const allNumbers = JSON.parse(localStorage.getItem('allNumbersBrands')!) || allNumbersBrands;
+    const currentNumbersBrands = JSON.parse(localStorage.getItem('currentNumbersBrands')!) || allNumbers;
     for (let i = 0; i < array.length; i++) {
       const item = `
         <div class="item-sort__item brand" data-brand='${array[i]
-          .toLowerCase()
-          .replace(/\s/g, '')}'>
+    .toLowerCase()
+    .replace(/\s/g, '')}'>
           <div class="item-sort__name">${array[i]}</div>
-          <div class="item-sort__amount">(1/1)</div>
+          <div class="item-sort__amount amount-brand">(${currentNumbersBrands[i]}/${allNumbers[i]})</div>
         </div>
       `;
       node.insertAdjacentHTML('beforeend', item);

@@ -15,5 +15,5 @@ export const bigButton = document.querySelector('.view-head__small') as HTMLElem
 // Input Range
 export const rangeMins = document.querySelectorAll('.multi-range__min') as NodeListOf<HTMLInputElement>;
 export const rangeMaxs = document.querySelectorAll('.multi-range__max') as NodeListOf<HTMLInputElement>;
-export const valueFroms = document.querySelectorAll('.range-aside__from span') as NodeListOf<Element>;
-export const valueTos = document.querySelectorAll('.range-aside__to span') as NodeListOf<Element>;
+export const valueFroms = document.querySelectorAll('.range-aside__from span') as NodeListOf<HTMLElement>;
+export const valueTos = document.querySelectorAll('.range-aside__to span') as NodeListOf<HTMLElement>;

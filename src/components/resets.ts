@@ -5,12 +5,13 @@ import { historyResolver } from '../routing/routing';
 import { Location, Product } from '../types';
 import { productsObj } from '../utilities/data';
 import { filtering, getKeys } from '../logic/filter';
-import { getPageHtml } from '../main-page/content';
+import { copyLink, getPageHtml } from '../main-page/content';
 import { categoriesClick } from './categories';
 import { brandsClick } from './brands';
 import { searchInput } from './search';
 import { sortChange } from './sort';
 import { rangeMinMaxInput } from './rangeMinMax';
+import { queryStringLogic } from '../index';
 
 function zeroingStylesPage(): void {
   const categories = document.querySelectorAll('.category') as NodeListOf<HTMLElement>;
@@ -42,17 +43,23 @@ function removingLocalStorage() {
   localStorage.removeItem('keysBrandsFilter');
   localStorage.removeItem('searchValue');
   localStorage.removeItem('sortOption');
+  localStorage.removeItem('keysPrice');
+  localStorage.removeItem('keysStock');
   // обнуление при перезагрузке
   localStorage.removeItem('countCart');
   localStorage.removeItem('arrCart');
   localStorage.removeItem('total');
+  // обнуление found, brands, categories
+  localStorage.removeItem('found');
+  localStorage.removeItem('currentNumbersCategories');
+  localStorage.removeItem('currentNumbersBrands');
 }
 
 function rendering() {
   getKeys();
   getPageHtml();
   const arr: Product[] = productsObj.products;
-  filtering(arr, [], [], '', '');
+  filtering(arr, [], [], '', '', ['0', '1749'], ['0', '150']);
 
   const categoriesNode = document.querySelectorAll('.category') as NodeListOf<HTMLElement>;
   const brandsNode = document.querySelectorAll('.brand') as NodeListOf<HTMLElement>;
@@ -64,8 +71,8 @@ function rendering() {
   const bigButton = document.querySelector('.view-head__small') as HTMLElement;
   const rangeMins = document.querySelectorAll('.multi-range__min') as NodeListOf<HTMLInputElement>;
   const rangeMaxs = document.querySelectorAll('.multi-range__max') as NodeListOf<HTMLInputElement>;
-  const valueFroms = document.querySelectorAll('.range-aside__from span') as NodeListOf<Element>;
-  const valueTos = document.querySelectorAll('.range-aside__to span') as NodeListOf<Element>;
+  const valueFroms = document.querySelectorAll('.range-aside__from span') as NodeListOf<HTMLElement>;
+  const valueTos = document.querySelectorAll('.range-aside__to span') as NodeListOf<HTMLElement>;
 
   // Выбор категории
   categoriesClick(categoriesNode);
@@ -87,6 +94,12 @@ function rendering() {
   rangeMinMaxInput(rangeMins, rangeMaxs, valueFroms, valueTos);
 
   zeroingStylesPage();
+
+  // queryStringLogic
+  queryStringLogic();
+
+  // copy
+  copyLink();
 }
 
 export function mainClick(main: HTMLElement): void {
