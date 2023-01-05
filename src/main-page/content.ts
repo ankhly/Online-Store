@@ -4,6 +4,7 @@ import { AddItem } from './addItem';
 
 const arrBrands: string[] = [];
 const arrCategory: string[] = [];
+export const arrUrl: string[] = [];
 export const arr: Product[] = productsObj.products;
 
 for (let i = 0; i < arr.length; i++) {
@@ -186,9 +187,11 @@ export function showFiltered(filterArray: Product[]): void {
   const itemCatalog = document.querySelector('.item-catalog') as HTMLElement;
 
   itemCatalog.innerHTML = '';
+  arrUrl.length = 0;
   for (let i = 0; i < filterArray.length; i++) {
+    arrUrl.push(filterArray[i].thumbnail);
     const item = `
-      <div class="item-catalog__item" style="background-image: url()})">
+      <div class="item-catalog__item" style="background: url(./loading.gif)">
         <h2 class="item-catalog__title">${filterArray[i].title}</h2>
         <div class="item-catalog__description description-item">
           <div class="description-item__category">
@@ -221,29 +224,39 @@ export function showFiltered(filterArray: Product[]): void {
     itemCatalog.insertAdjacentHTML('beforeend', item);
   }
 
-  async function getImage(): Promise<void> {
-    const catalogBgs = document.querySelectorAll('.item-catalog__item') as NodeListOf<Element>;
-
-    for (let i = 0; i < filterArray.length; i++) {
-      const catalogBg = catalogBgs[i] as HTMLElement;
-      try {
-        const res = await fetch(filterArray[i].thumbnail);
-        catalogBg.style.background = `url(${res.url})`;
-        catalogBg.style.backgroundSize = 'cover';
-        catalogBg.style.backgroundPosition = 'center';
-      } catch {
-        console.log('error');
-      }
-    }
+  const mainCatalog = document.querySelector('.item-catalog') as HTMLElement;
+  function loadImg(url:string) {
+    return new Promise((res) => {
+      const img = new Image();
+      img.src = url;
+      img.addEventListener('load', ():void => {
+        mainCatalog.classList.add('load');
+        setTimeout(() => {
+          res(url);
+        }, 2000);
+      });
+    });
   }
-  getImage();
+  Promise.all(arrUrl.map(loadImg)).then(
+    (imgUrl) => {
+      for (let i = 0; i < imgUrl.length; i++) {
+        const catalogBgs = document.querySelectorAll('.item-catalog__item') as NodeListOf<Element>;
+        const catalogBg = catalogBgs[i] as HTMLElement;
+        if (catalogBg) {
+          catalogBg.style.background = `url(${imgUrl[i]})`;
+          catalogBg.style.backgroundSize = 'cover';
+        }
+      }
+      mainCatalog.classList.remove('load');
+    },
+  );
 }
 
 export function showNoProducts(): void {
   const itemCatalog = document.querySelector('.item-catalog') as HTMLElement;
 
   itemCatalog.innerHTML = '';
-  const item = '<div>No Products Found</div>';
+  const item = '<div class="nofound">No Products Found!</div>';
   itemCatalog.insertAdjacentHTML('beforeend', item);
 }
 

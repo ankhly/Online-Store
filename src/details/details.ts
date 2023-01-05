@@ -1,6 +1,7 @@
 import { Location, Product } from '../types';
 import { historyResolver } from '../routing/routing';
 import { addCartCount, removeCartCount } from '../cart/cart';
+import { btnClick } from '../forma/forma';
 
 export function productCardsDetails(filterArray: Product[], productCards: NodeListOf<HTMLElement>): void {
   for (let i = 0; i < productCards.length; i++) {
@@ -56,30 +57,26 @@ export function productCardsDetails(filterArray: Product[], productCards: NodeLi
               <div class="actions-details__cost">€ ${filterArray[i].price}</div>
               <div class="actions-details__buttons">
                 <button class="actions-details__add btn-details">Add to cart</button>
-                <button class="actions-details__buy btn-details">Buy now</button>
+                <button class="actions-details__buy btn-details buy-now">Buy now</button>
               </div>
             </div>
           </div>
         </div>
       `;
       mainPage.insertAdjacentHTML('beforeend', itemDetails);
-
+      btnClick();
       const blockFoto = document.querySelector('.images-details__other-foto') as HTMLElement;
       const mainFoto = document.querySelector('.images-details__main-foto img') as HTMLImageElement;
 
       async function getImage(): Promise<void> {
-        try {
-          for (let j = 0; j < filterArray[i].images.length; j++) {
-            const res = await fetch(filterArray[i].images[j]);
-            const itemImage = `
+        for (let j = 0; j < filterArray[i].images.length; j++) {
+          const res = await fetch(filterArray[i].images[j]);
+          const itemImage = `
               <div class="images-details__image">
                 <img src="${res.url}" alt="picture" />
               </div>
             `;
-            blockFoto.insertAdjacentHTML('beforeend', itemImage);
-          }
-        } catch {
-          console.log('error');
+          blockFoto.insertAdjacentHTML('beforeend', itemImage);
         }
       }
       getImage();
