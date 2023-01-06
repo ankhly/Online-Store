@@ -1,7 +1,7 @@
 import { Location, Product } from '../types';
 import { historyResolver } from '../routing/routing';
 import { addCartCount, removeCartCount } from '../cart/cart';
-import { btnClick } from '../forma/forma';
+import { btnClick } from '../form/form';
 
 export function productCardsDetails(filterArray: Product[], productCards: NodeListOf<HTMLElement>): void {
   for (let i = 0; i < productCards.length; i++) {
@@ -103,7 +103,6 @@ export function productCardsDetails(filterArray: Product[], productCards: NodeLi
 
       add.addEventListener('click', () => {
         if (arrCart.some((elem: Product) => elem.id === filterArray[i].id)) {
-        // if (arrCart.includes(filterArray[i])) {
           const a = arrCart.indexOf(filterArray[i]);
           arrCart.splice(a, 1);
           add.innerHTML = 'Add to cart';

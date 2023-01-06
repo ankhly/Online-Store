@@ -1,9 +1,8 @@
 import { Location, Product } from '../types';
 import { historyResolver } from '../routing/routing';
-import { btnClick } from '../forma/forma';
+import { btnClick } from '../form/form';
 
 let arrCart: Product[] = JSON.parse(localStorage.getItem('arrCart')!) || [];
-
 let total: number = Number(localStorage.getItem('total')) || 0;
 let countCart: number = Number(localStorage.getItem('countCart')) || 0;
 
@@ -170,6 +169,7 @@ export function cartBtnClick(cartBtn: HTMLElement): void {
       }
     }
     totalCart(total);
+
     function totalCart(sum: number): void {
       sumTotal.innerHTML = sum.toString();
       cardHeaderTotal.innerHTML = sum.toString();

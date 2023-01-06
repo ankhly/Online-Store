@@ -1,7 +1,6 @@
 import { historyResolver } from '../routing/routing';
 import { Location } from '../types';
 
-// новое
 export function addBigButtonClass(
   descriptionItems: NodeListOf<Element>,
   pageCatalog: HTMLElement,
@@ -11,6 +10,7 @@ export function addBigButtonClass(
 ): void {
   bigButton.classList.add('activeLittleBig');
   littleButton.classList.remove('activeLittleBig');
+
   for (let i = 0; i < descriptionItems.length; i++) {
     const descriptionItem = descriptionItems[i] as HTMLElement;
     const buttonsItem = buttonsItems[i] as HTMLElement;
@@ -20,7 +20,6 @@ export function addBigButtonClass(
   }
 }
 
-// новое
 export function addLittleButtonClass(
   descriptionItems: NodeListOf<Element>,
   pageCatalog: HTMLElement,
@@ -30,6 +29,7 @@ export function addLittleButtonClass(
 ): void {
   littleButton.classList.add('activeLittleBig');
   bigButton.classList.remove('activeLittleBig');
+
   for (let i = 0; i < descriptionItems.length; i++) {
     const descriptionItem = descriptionItems[i] as HTMLElement;
     const buttonsItem = buttonsItems[i] as HTMLElement;
@@ -71,7 +71,6 @@ export function bigButtonClick(big: HTMLElement): void {
   });
 }
 
-// новое
 export function littleBigButtonsQueryString(urlParams: URLSearchParams): void {
   const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
   const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;
@@ -86,7 +85,6 @@ export function littleBigButtonsQueryString(urlParams: URLSearchParams): void {
   }
 }
 
-// saveView
 export function saveView(): void {
   const descriptionItems = document.querySelectorAll('.description-item ') as NodeListOf<Element>;
   const pageCatalog = document.querySelector('.main-page__catalog') as HTMLElement;

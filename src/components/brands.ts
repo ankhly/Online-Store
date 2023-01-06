@@ -7,7 +7,6 @@ import { productsObj } from '../utilities/data';
 import { saveView } from './littleBigButtons';
 import { showFound, showNumbersBrandsCategories } from '../main-page/content';
 
-// for filter
 const arr: Product[] = productsObj.products;
 export let keysBrandsFilter: string[] = JSON.parse(localStorage.getItem('keysBrandsFilter')!) || [];
 let keysCategoriesFilter: string[] = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
@@ -32,7 +31,6 @@ export function brandsClick(brands: NodeListOf<HTMLElement>): void {
 
       historyResolver(Location.brand, prefix, activeFlag);
 
-      // filter
       for (let j = 0; j < keysBrands.length; j++) {
         if (keysBrands[j].brand === brands[i].dataset.brand && !keysBrands[j].flag) {
           keysBrands[j].selected = true;
@@ -49,11 +47,8 @@ export function brandsClick(brands: NodeListOf<HTMLElement>): void {
 
       filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption, keysPrice, keysStock);
 
-      // чтобы сохранялся вид
       saveView();
-      // found
       showFound();
-      // numbersBrands
       showNumbersBrandsCategories();
     });
   }
@@ -75,7 +70,6 @@ export function brandsQueryString(
   const classNameArrayBrands = [];
   for (let i = 0; i < brands.length; i++) {
     if (queryStringArray.includes(brands[i].dataset.brand!)) {
-      // filter
       for (let j = 0; j < keysBrands.length; j++) {
         if (keysBrands[j].brand === brands[i].dataset.brand && !keysBrands[j].flag) {
           keysBrands[j].selected = true;
@@ -84,7 +78,6 @@ export function brandsQueryString(
       }
       brands[i].classList.add('activeCategoryBrand');
     } else {
-      // filter
       for (let j = 0; j < keysBrands.length; j++) {
         if (keysBrands[j].brand === brands[i].dataset.brand && keysBrands[j].flag) {
           keysBrands[j].selected = false;
@@ -95,7 +88,6 @@ export function brandsQueryString(
     }
     classNameArrayBrands.push(brands[i].className);
   }
-  // filter
   localStorage.setItem('keysBrands', JSON.stringify(keysBrands));
 
   if (classNameArrayBrands.every((elem: string): boolean => !elem.includes('activeCategoryBrand'))) {

@@ -169,7 +169,6 @@ export function getPageHtml(): void {
 }
 getPageHtml();
 
-// Копировать ссылку
 export function copyLink(): void {
   const copy = document.querySelector('.buttons-aside__copy') as HTMLElement;
   copy.addEventListener('click', (): void => {
@@ -233,7 +232,7 @@ export function showFiltered(filterArray: Product[]): void {
         mainCatalog.classList.add('load');
         setTimeout(() => {
           res(url);
-        }, 2000);
+        }, 1000);
       });
     });
   }
@@ -260,7 +259,6 @@ export function showNoProducts(): void {
   itemCatalog.insertAdjacentHTML('beforeend', item);
 }
 
-// НОВОЕ
 export function showFound(): void {
   const found = document.querySelector('#found') as HTMLElement;
 

@@ -5,7 +5,6 @@ import { productsObj } from '../utilities/data';
 import { saveView } from './littleBigButtons';
 import { showFound, showNumbersBrandsCategories } from '../main-page/content';
 
-// search
 const arr: Product[] = productsObj.products;
 export let searchValue: string = localStorage.getItem('searchValue') || '';
 let keysBrandsFilter: string[] = JSON.parse(localStorage.getItem('keysBrandsFilter')!) || [];
@@ -26,17 +25,13 @@ export function searchInput(search: HTMLInputElement): void {
 
     historyResolver(Location.search, prefix);
 
-    // search
     searchValue = search.value;
     localStorage.setItem('searchValue', searchValue);
 
     filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption, keysPrice, keysStock);
 
-    // чтобы сохранялся вид
     saveView();
-    // found
     showFound();
-    // numbersCategories
     showNumbersBrandsCategories();
   });
 }

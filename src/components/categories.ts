@@ -7,7 +7,6 @@ import { productsObj } from '../utilities/data';
 import { saveView } from './littleBigButtons';
 import { showFound, showNumbersBrandsCategories } from '../main-page/content';
 
-// for filter
 const arr: Product[] = productsObj.products;
 export let keysCategoriesFilter: string[] = JSON.parse(localStorage.getItem('keysCategoriesFilter')!) || [];
 let keysBrandsFilter: string[] = JSON.parse(localStorage.getItem('keysBrandsFilter')!) || [];
@@ -32,7 +31,6 @@ export function categoriesClick(categories: NodeListOf<HTMLElement>): void {
 
       historyResolver(Location.category, prefix, activeFlag);
 
-      // filter
       for (let j = 0; j < keysCategories.length; j++) {
         if (keysCategories[j].category === categories[i].dataset.category && !keysCategories[j].flag) {
           keysCategories[j].selected = true;
@@ -49,11 +47,8 @@ export function categoriesClick(categories: NodeListOf<HTMLElement>): void {
 
       filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption, keysPrice, keysStock);
 
-      // чтобы сохранялся вид
       saveView();
-      // found
       showFound();
-      // numbersCategories
       showNumbersBrandsCategories();
     });
   }
@@ -75,7 +70,6 @@ export function categoriesQueryString(
   const classNameArrayCategories = [];
   for (let i = 0; i < categories.length; i++) {
     if (queryStringArray.includes(categories[i].dataset.category!)) {
-      // filter
       for (let j = 0; j < keysCategories.length; j++) {
         if (keysCategories[j].category === categories[i].dataset.category && !keysCategories[j].flag) {
           keysCategories[j].selected = true;
@@ -84,7 +78,6 @@ export function categoriesQueryString(
       }
       categories[i].classList.add('activeCategoryBrand');
     } else {
-      // filter
       for (let j = 0; j < keysCategories.length; j++) {
         if (keysCategories[j].category === categories[i].dataset.category && keysCategories[j].flag) {
           keysCategories[j].selected = false;
@@ -95,7 +88,6 @@ export function categoriesQueryString(
     }
     classNameArrayCategories.push(categories[i].className);
   }
-  // filter
   localStorage.setItem('keysCategories', JSON.stringify(keysCategories));
 
   if (classNameArrayCategories.every((elem: string): boolean => !elem.includes('activeCategoryBrand'))) {
