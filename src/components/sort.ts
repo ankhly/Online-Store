@@ -4,7 +4,6 @@ import { productsObj } from '../utilities/data';
 import { filtering } from '../logic/filter';
 import { saveView } from './littleBigButtons';
 
-// sort
 const arr: Product[] = productsObj.products;
 export let sortOption: string = localStorage.getItem('sortOption') || '';
 let keysBrandsFilter: string[] = JSON.parse(localStorage.getItem('keysBrandsFilter')!) || [];
@@ -25,13 +24,11 @@ export function sortChange(sort: HTMLSelectElement): void {
 
     historyResolver(Location.sort, prefix);
 
-    // sort
     sortOption = sort.options[sort.selectedIndex].value;
     localStorage.setItem('sortOption', sortOption);
 
     filtering(arr, keysCategoriesFilter, keysBrandsFilter, searchValue, sortOption, keysPrice, keysStock);
 
-    // чтобы сохранялся вид
     saveView();
   });
 }

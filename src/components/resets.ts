@@ -45,11 +45,9 @@ function removingLocalStorage() {
   localStorage.removeItem('sortOption');
   localStorage.removeItem('keysPrice');
   localStorage.removeItem('keysStock');
-  // обнуление при перезагрузке
   localStorage.removeItem('countCart');
   localStorage.removeItem('arrCart');
   localStorage.removeItem('total');
-  // обнуление found, brands, categories
   localStorage.removeItem('found');
   localStorage.removeItem('currentNumbersCategories');
   localStorage.removeItem('currentNumbersBrands');
@@ -59,7 +57,7 @@ function rendering() {
   getKeys();
   getPageHtml();
   const arr: Product[] = productsObj.products;
-  filtering(arr, [], [], '', '', ['0', '1749'], ['0', '150']);
+  filtering(arr, [], [], '', '', ['0', '1750'], ['0', '150']);
 
   const categoriesNode = document.querySelectorAll('.category') as NodeListOf<HTMLElement>;
   const brandsNode = document.querySelectorAll('.brand') as NodeListOf<HTMLElement>;
@@ -74,31 +72,20 @@ function rendering() {
   const valueFroms = document.querySelectorAll('.range-aside__from span') as NodeListOf<HTMLElement>;
   const valueTos = document.querySelectorAll('.range-aside__to span') as NodeListOf<HTMLElement>;
 
-  // Выбор категории
   categoriesClick(categoriesNode);
-  // Выбор брэнда
   brandsClick(brandsNode);
-  // Выбор сортировки
   sortChange(sortNode);
-  // Поиск
   searchInput(searchNode);
-  // Кнопка мало
   littleButtonClick(littleButton);
-  // Кнопка много
   bigButtonClick(bigButton);
-  // На главную (Сброс настроек)
   mainClick(mainNode);
-  // Сброс настроек
   resetClick(reset);
-  // Input Range
   rangeMinMaxInput(rangeMins, rangeMaxs, valueFroms, valueTos);
 
   zeroingStylesPage();
 
-  // queryStringLogic
   queryStringLogic();
 
-  // copy
   copyLink();
 }
 
@@ -106,10 +93,8 @@ export function mainClick(main: HTMLElement): void {
   main.addEventListener('click', (): void => {
     historyResolver(Location.main);
 
-    // filter and search
     removingLocalStorage();
 
-    // Отрисовка
     rendering();
   });
 }
@@ -118,10 +103,8 @@ export function resetClick(reset: HTMLElement): void {
   reset.addEventListener('click', (): void => {
     historyResolver(Location.main);
 
-    // filter and search
     removingLocalStorage();
 
-    // Отрисовка
     rendering();
   });
 }

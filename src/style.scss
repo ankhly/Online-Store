@@ -1,5 +1,3 @@
-// переменные
-
 $fontFamily: "";
 $fontSize: 16;
 
@@ -11,15 +9,11 @@ $md2: 991.98;
 $md3: 767.98;
 $md4: 479.98;
 
-//imports
-
 @import "./utilities/null.scss";
 @import "./main-page/main.scss";
 @import "./details/details.scss";
 @import "./cart/cart.scss";
-@import "./forma/forma.scss";
-
-//общие классы и стили
+@import "./form/form.scss";
 
 .wrapper {
 	width: 100%;
@@ -53,9 +47,6 @@ $md4: 479.98;
 	padding: 0 15px;
 }
 
-//=======
-
-// Активыне стили
 .activeLittleBig {
 	border: 1px solid red;
 }

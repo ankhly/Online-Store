@@ -26,21 +26,18 @@ export function locationCategoriesFlagTrue(): void {
   locationCategoriesFlag = storageLocationCategoriesFlag;
 }
 
-// Возваращаю в false (Если все active)
 export function locationCategoriesFlagFalse(): void {
   localStorage.setItem('locationCategoriesFlag', 'false');
   storageLocationCategoriesFlag = localStorage.getItem('locationCategoriesFlag');
   locationCategoriesFlag = storageLocationCategoriesFlag;
 }
 
-// Возваращаю в false (Если все active)
 export function locationBrandsFlagFalse(): void {
   localStorage.setItem('locationBrandsFlag', 'false');
   storageLocationBrandsFlag = localStorage.getItem('locationBrandsFlag');
   locationBrandsFlag = storageLocationBrandsFlag;
 }
 
-// Возможно только для main.
 function zeroingLocationStrings(): void {
   locationStringCategories = '';
   locationStringBrands = '';
@@ -53,7 +50,6 @@ function zeroingLocationStrings(): void {
   locationCategoriesFlagTrue();
   locationBrandsFlagTrue();
 
-  // localStorage.clear();
   localStorage.removeItem('locationCategoriesFlag');
   localStorage.removeItem('locationBrandsFlag');
   localStorage.removeItem('locationStringCategories');
@@ -125,7 +121,6 @@ export const historyResolver = (location: string, prefix?: string, activeFlag?: 
     locationStringLittleBig = `&${location}=${prefix}`;
   }
 
-  // добавил
   if (location === Location.price) {
     locationStringPrice = `&${location}=${prefix}`;
   }
@@ -142,7 +137,6 @@ export const historyResolver = (location: string, prefix?: string, activeFlag?: 
   localStorage.setItem('locationStringPrice', locationStringPrice);
   localStorage.setItem('locationStringStock', locationStringStock);
 
-  // Возможно можно написать условие при котором будет меняться порядок (Сложно);
   locationString = `/?${localStorage.getItem('locationStringCategories')}${localStorage.getItem('locationStringBrands')}${localStorage.getItem('locationStringSorts')}${localStorage.getItem('locationStringSearch')}${localStorage.getItem('locationStringLittleBig')}${localStorage.getItem('locationStringPrice')}${localStorage.getItem('locationStringStock')}`;
 
   if (location === Location.detail) {

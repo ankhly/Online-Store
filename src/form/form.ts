@@ -1,42 +1,43 @@
-/* eslint-disable max-len */
-const formaHtml = `<div class="main-page__forma forma-page">
-<form class="forma-page__body">
-  <div class="forma-page__details input">
-    <h2 class="input__title title-popup">Personal details</h2>
-    <input type="text" name="" placeholder="Name" class="input__name inp">
-    <div class="error"></div>
-    <input type="text" name="" placeholder="Phone number" class="input__phone inp">
-    <div class="error"></div>
-    <input type="text" name="" placeholder="Delivery address" class="input__address inp">
-    <div class="error"></div>
-    <input type="text" name="" placeholder="E-mail" class="input__email inp">
-    <div class="error"></div>
-  </div>
-  <div class="forma-page__credit card">
-    <h2 class="card__title title-popup">Credit card details</h2>
-    <div class="card__details">
-      <div class="card__pay-card">
-      <div class="card__system-label"></div>
-        <input type="text" name="" placeholder="Card number" class="card__number inp">
+const formHtml = `
+  <div class="main-page__form form-page">
+    <form class="form-page__body">
+      <div class="form-page__details input">
+        <h2 class="input__title title-popup">Personal details</h2>
+        <input type="text" name="" placeholder="Name" class="input__name inp">
+        <div class="error"></div>
+        <input type="text" name="" placeholder="Phone number" class="input__phone inp">
+        <div class="error"></div>
+        <input type="text" name="" placeholder="Delivery address" class="input__address inp">
+        <div class="error"></div>
+        <input type="text" name="" placeholder="E-mail" class="input__email inp">
         <div class="error"></div>
       </div>
-      <div class="card__data">
-        <div class="card__date">
-          <div class="card__label">VALID:</div>
-          <input type="text" name="" placeholder="Valid Thru" class="card__valid inp">
-          <div class="error"></div>
-        </div>
-        <div class="card__code">
-          <div class="card__label">CVV:</div>
-          <input type="text" name="" placeholder="Code" class="card__cvv inp">
-          <div class="error"></div>
+      <div class="form-page__credit card">
+        <h2 class="card__title title-popup">Credit card details</h2>
+        <div class="card__details">
+          <div class="card__pay-card">
+          <div class="card__system-label"></div>
+            <input type="text" name="" placeholder="Card number" class="card__number inp">
+            <div class="error"></div>
+          </div>
+          <div class="card__data">
+            <div class="card__date">
+              <div class="card__label">VALID:</div>
+              <input type="text" name="" placeholder="Valid Thru" class="card__valid inp">
+              <div class="error"></div>
+            </div>
+            <div class="card__code">
+              <div class="card__label">CVV:</div>
+              <input type="text" name="" placeholder="Code" class="card__cvv inp">
+              <div class="error"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+      <button type="submit" class="form-page__btn">Confirm</button>
+    </form>
   </div>
-  <button type="submit" class="forma-page__btn">Confirm</button>
-</form>
-</div>`;
+`;
 
 const validateInput = (nameInput:HTMLInputElement, funValidate: { (array: string[]): boolean; }):void => {
   const arr:Array<string> = [];
@@ -52,21 +53,22 @@ const validateName = (array:Array<string>):boolean => {
   const res = Number(array.filter((e) => e.length >= 3).length);
   return res >= 2;
 };
+
 const validateAdress = (array:Array<string>):boolean => {
   const res = Number(array.filter((e) => e.length >= 5).length);
   return res >= 3;
 };
+
 const validatePhone = (array:Array<string>):boolean => {
   const num = array.join('').split('');
-  if (num[0] === '+' && num.length >= 10) {
-    return true;
-  }
-  return false;
+  return num[0] === '+' && num.length >= 10;
 };
+
 const validateEmail = (array:Array<string>) => {
   const emailTest = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/iu;
   return emailTest.test(array.join(''));
 };
+
 const validateECardNumber = (array:Array<string>) => {
   const label = document.querySelector('.card__system-label') as HTMLElement;
   function labelStyle(url:string):void {
@@ -93,16 +95,14 @@ const validateECardNumber = (array:Array<string>) => {
   }
   return false;
 };
+
 const validateCvv = (array:Array<string>) => array.join('').split('').length === 3;
 
 const validateValid = (array:Array<string>) => {
   const arr = array.join('').split('\\');
   const year = String(new Date().getFullYear()).split('').splice(2, 4).join('');
   const mon = new Date().getMonth() + 1;
-  if (arr[0].length === 2 && Number(arr[0]) <= 12 && array.join('').length === 5 && arr[1] >= year && Number(arr[0]) >= mon) {
-    return true;
-  }
-  return false;
+  return arr[0].length === 2 && Number(arr[0]) <= 12 && array.join('').length === 5 && arr[1] >= year && Number(arr[0]) >= mon;
 };
 
 export function btnClick():void {
@@ -112,9 +112,9 @@ export function btnClick():void {
 
   document.addEventListener('click', (e:Event):void => {
     if (e.target === buyBtn) {
-      mainPage.insertAdjacentHTML('beforeend', formaHtml);
+      mainPage.insertAdjacentHTML('beforeend', formHtml);
       wrapper.classList.add('bg');
-      const form = document.querySelector('.forma-page__body') as HTMLFormElement;
+      const form = document.querySelector('.form-page__body') as HTMLFormElement;
       if (form) {
         const inputs = document.querySelectorAll('.inp') as NodeListOf<Element>;
         const inputName = document.querySelector('.input__name') as HTMLInputElement;
@@ -187,9 +187,9 @@ export function btnClick():void {
       }
     }
     if (e.target === wrapper) {
-      const formaPage = document.querySelector('.forma-page') as HTMLElement;
+      const formPage = document.querySelector('.form-page') as HTMLElement;
       wrapper.classList.remove('bg');
-      formaPage.remove();
+      formPage.remove();
     }
   });
 }

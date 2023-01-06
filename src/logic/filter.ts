@@ -44,7 +44,6 @@ export function getKeys(): void {
   arr1.sort((a: KeyCategory, b: KeyCategory) => (a.category > b.category ? 1 : -1));
   arr2.sort((a: KeyBrand, b: KeyBrand) => (a.brand > b.brand ? 1 : -1));
 }
-// Получаем keys
 getKeys();
 
 export let allNumbersCategories: number[] = JSON.parse(localStorage.getItem('allNumbersCategories')!) || [];
@@ -73,9 +72,8 @@ export function filtering(
   let searchFilterArrayPriceStock: Product[] = [];
   searchFilterArrayPriceStock = searchFilterArrayPrice.filter((item: Product) => item.stock > Number(stock[0]) && item.stock <= Number(stock[1]));
 
-  // found
   localStorage.setItem('found', `${searchFilterArrayPriceStock.length}`);
-  // numbers Brands and Categories
+
   const arrCategories: string[] = [];
   const arrBrands: string[] = [];
   for (let i = 0; i < arr.length; i++) {
@@ -166,7 +164,6 @@ export function filtering(
     const productCards = document.querySelectorAll('.buttons-item__details') as NodeListOf<HTMLElement>;
     productCardsDetails(searchFilterArrayPriceStock, productCards);
 
-    // обнуление при перезагрузке
     localStorage.removeItem('countCart');
     localStorage.removeItem('arrCart');
     localStorage.removeItem('total');

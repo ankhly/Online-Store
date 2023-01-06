@@ -19,7 +19,6 @@ function slideMax(rangeMax: HTMLInputElement, rangeMin: HTMLInputElement, valueT
   valueTo.textContent = `${Math.round((a * Number(rangeMax.value)) / 100)}.00`;
 }
 
-// for filtering logic
 export let keysPrice: string[] = JSON.parse(localStorage.getItem('keysPrice')!) || [];
 export let keysStock: string[] = JSON.parse(localStorage.getItem('keysStock')!) || [];
 const arr: Product[] = productsObj.products;
@@ -48,7 +47,6 @@ export function rangeMinMaxInput(
       searchValue = localStorage.getItem('searchValue') || '';
       sortOption = localStorage.getItem('sortOption') || '';
 
-      // filter
       if (rangeMax.dataset.range === 'price' || rangeMin.dataset.range === 'price') {
         if (valueFrom.textContent && valueTo.textContent) {
           const prefix1: string = valueFrom.textContent.split('.').slice(0, 1).join('');
@@ -78,11 +76,8 @@ export function rangeMinMaxInput(
         }
       }
 
-      // чтобы сохранялся вид
       saveView();
-      // found
       showFound();
-      // numbersCategories
       showNumbersBrandsCategories();
     });
 
@@ -93,7 +88,6 @@ export function rangeMinMaxInput(
       searchValue = localStorage.getItem('searchValue') || '';
       sortOption = localStorage.getItem('sortOption') || '';
 
-      // filter
       if (rangeMax.dataset.range === 'price' || rangeMin.dataset.range === 'price') {
         if (valueTo.textContent && valueFrom.textContent) {
           const prefix1: string = valueFrom.textContent.split('.').slice(0, 1).join('');
@@ -123,11 +117,8 @@ export function rangeMinMaxInput(
         }
       }
 
-      // чтобы сохранялся вид
       saveView();
-      // found
       showFound();
-      // numbersCategories
       showNumbersBrandsCategories();
     });
   }
@@ -142,7 +133,7 @@ export function rangeMinMaxQueryString(
     const valueFromPriceNode = document.querySelector('.price-from span') as HTMLElement;
     const valueToPriceNode = document.querySelector('.price-to span') as HTMLElement;
 
-    const a = 1749;
+    const a = 1750;
 
     const min = Number(urlParams.getAll('price').join('').split('↕')[0]);
     const max = Number(urlParams.getAll('price').join('').split('↕')[1]);
