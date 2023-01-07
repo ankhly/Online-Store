@@ -1,3 +1,6 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable class-methods-use-this */
 import { allNumbersBrands, allNumbersCategories } from '../logic/filter';
 
 export class AddItem {

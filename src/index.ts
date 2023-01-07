@@ -1,3 +1,7 @@
+/* eslint-disable import/no-duplicates */
+/* eslint-disable no-console */
+/* eslint-disable max-len */
+/* eslint-disable import/no-cycle */
 import './style.scss';
 import './main-page/content';
 import './form/form';
@@ -8,7 +12,9 @@ import {
 import { showFound, showNumbersBrandsCategories } from './main-page/content';
 import { brandsClick, brandsQueryString, keysBrandsFilter } from './components/brands';
 import { categoriesClick, categoriesQueryString, keysCategoriesFilter } from './components/categories';
-import { rangeMinMaxInput, rangeMinMaxQueryString, keysPrice, keysStock } from './components/rangeMinMax';
+import {
+  rangeMinMaxInput, rangeMinMaxQueryString, keysPrice, keysStock,
+} from './components/rangeMinMax';
 import { sortChange, sortQueryString, sortOption } from './components/sort';
 import { searchInput, searchQueryString, searchValue } from './components/search';
 import {

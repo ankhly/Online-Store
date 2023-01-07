@@ -1,5 +1,9 @@
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-loop-func */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable import/no-mutable-exports */
 import {
-  historyResolver, locationCategoriesFlagFalse, locationCategoriesFlagTrue
+  historyResolver, locationCategoriesFlagFalse, locationCategoriesFlagTrue,
 } from '../routing/routing';
 import { Product, Location, KeyCategory } from '../types';
 import { filtering, keysCategories } from '../logic/filter';

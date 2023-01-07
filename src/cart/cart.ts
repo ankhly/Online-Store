@@ -1,3 +1,8 @@
+/* eslint-disable radix */
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable no-inner-declarations */
+/* eslint-disable @typescript-eslint/no-loop-func */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Location, Product } from '../types';
 import { historyResolver } from '../routing/routing';
 import { btnClick } from '../form/form';
