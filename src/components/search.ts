@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable import/no-mutable-exports */
 import { historyResolver } from '../routing/routing';
 import { Location, Product } from '../types';
 import { filtering } from '../logic/filter';

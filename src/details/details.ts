@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import { Location, Product } from '../types';
 import { historyResolver } from '../routing/routing';
 import { addCartCount, removeCartCount } from '../cart/cart';

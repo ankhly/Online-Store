@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable import/no-cycle */
 import {
   addBigButtonClass, bigButtonClick, littleButtonClick,
 } from './littleBigButtons';

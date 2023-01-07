@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { productsObj } from '../utilities/data';
 import { Product } from '../types';
 import { AddItem } from './addItem';
@@ -152,7 +153,19 @@ export function getPageHtml(): void {
           </div>
         </section>
       </main>
-      <footer class="footer"></footer>
+      <footer class="footer">
+      <div class="footer__container container">
+      <div class="footer__body">
+    <div class="footer__git git">
+      <h3 class="git__title">GitHub:</h3>
+      <a href="https://github.com/ankhly" class="git__an name">ankhly</a>
+      <a href="https://github.com/MaksimkaSota" class="git__ma name">MaksimkaSota</a>
+    </div>
+    <div class="footer__year">2023</div>
+    <a href="https://rs.school/js/" class="footer__rs"></a>
+    </div>
+    </div>
+  </footer>
     </div>
   `;
   body.insertAdjacentHTML('beforeend', mainContent);
@@ -223,13 +236,11 @@ export function showFiltered(filterArray: Product[]): void {
     itemCatalog.insertAdjacentHTML('beforeend', item);
   }
 
-  const mainCatalog = document.querySelector('.item-catalog') as HTMLElement;
   function loadImg(url:string) {
-    return new Promise((res) => {
+    return new Promise((res, rej) => {
       const img = new Image();
       img.src = url;
       img.addEventListener('load', ():void => {
-        mainCatalog.classList.add('load');
         setTimeout(() => {
           res(url);
         }, 1000);
@@ -246,7 +257,6 @@ export function showFiltered(filterArray: Product[]): void {
           catalogBg.style.backgroundSize = 'cover';
         }
       }
-      mainCatalog.classList.remove('load');
     },
   );
 }

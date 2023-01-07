@@ -1,3 +1,7 @@
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable import/no-cycle */
+/* eslint-disable import/no-mutable-exports */
 import {
   Product,
   KeyCategory,

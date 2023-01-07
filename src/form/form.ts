@@ -82,11 +82,11 @@ const validateECardNumber = (array:Array<string>) => {
     return true;
   }
   if (ar[0] === '4') {
-    labelStyle('url(../visa.svg');
+    labelStyle('url(./visa.svg');
   } else if (ar[0] === '5') {
-    labelStyle('url(../mastercard.svg)');
+    labelStyle('url(./mastercard.svg)');
   } else if (ar[0] === '6') {
-    labelStyle('url(../belkart.png)');
+    labelStyle('url(./belkart.png)');
   } else {
     label.style.background = 'rgb(232, 227, 227)';
   }
