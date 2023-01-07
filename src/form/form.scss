@@ -1,0 +1,154 @@
+.form-page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	// .form-page__body
+	&__body {
+		position: relative;
+		z-index: 10;
+		padding: 20px;
+		border: 3px solid rgb(255, 255, 255);
+		border-radius: 20px;
+		max-width: 470px;
+	}
+	// .form-page__details
+	&__details {
+		margin: 0px 0px 25px 0px;
+	}
+	// .form-page__credit
+	&__credit {
+	}
+	&__btn {
+		padding: 10px;
+		border: 2px solid #fff;
+		border-radius: 15px;
+		color: #fff;
+		transition: all 0.3s;
+		font-size: 22px;
+		font-weight: 700;
+		display: block;
+		width: 300px;
+		margin: 0 auto;
+		@media (any-hover: hover) {
+			&:hover {
+				transform: scale(1.1);
+			}
+		}
+	}
+}
+.title-popup {
+	text-align: center;
+	font-size: 24px;
+	font-weight: 700;
+	color: rgb(255, 255, 255);
+	&:not(:last-child) {
+		margin: 0px 0px 20px 0px;
+	}
+}
+.inp {
+	padding: 8px;
+	&:not(:last-child) {
+		margin: 0px 0px 5px 0px;
+	}
+	border-radius: 10px;
+	text-align: center;
+	outline: none;
+	width: 100%;
+	font-size: 16px;
+	font-weight: 700;
+	border: 4px solid rgb(199, 10, 10);
+	position: relative;
+	&.true {
+		border: 4px solid rgb(12, 208, 12);
+	}
+}
+.error {
+	color: red;
+	font-size: 18px;
+	&:not(:last-child) {
+		margin: 0px 0px 15px 0px;
+	}
+}
+.input {
+	display: flex;
+	flex-direction: column;
+	// .input__title
+	&__title {
+	}
+	// .input__name
+	&__name {
+	}
+	// .input__phone
+	&__phone {
+	}
+	// .input__address
+	&__address {
+	}
+	// .input__email
+	&__email {
+	}
+}
+.card {
+	// .card__title
+	&__title {
+	}
+	&__details {
+		padding: 20px 20px 20px 20px;
+		border: 2px solid rgb(255, 255, 255);
+		border-radius: 10px;
+		margin: 0px 0px 30px 0px;
+	}
+	// .card__pay-card
+	&__pay-card {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin: 0px 0px 30px 0px;
+	}
+	// .card__number
+	&__number {
+	}
+	// .card__system-label
+	&__system-label {
+		width: 50px;
+		height: 25px;
+		background-color: rgb(232, 227, 227);
+	}
+	// .card__data
+	&__data {
+		display: flex;
+		gap: 15px;
+		@media (max-width: $md4+px) {
+			flex-direction: column;
+		}
+	}
+	// .card__date
+	&__date {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+	}
+	// .card__valid
+	&__valid {
+	}
+	// .card__label
+	&__label {
+		color: #fff;
+		font-size: 20px;
+		font-weight: 700;
+	}
+	// .card__code
+	&__code {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+	}
+	// .card__cvv
+	&__cvv {
+	}
+}

@@ -1,0 +1,56 @@
+$fontFamily: "";
+$fontSize: 16;
+
+$minWidth: 320px;
+$maxWidth: 1920;
+$maxWidthContainer: 1440;
+$md1: $maxWidthContainer + 12;
+$md2: 991.98;
+$md3: 767.98;
+$md4: 479.98;
+
+@import "./utilities/null.scss";
+@import "./main-page/main.scss";
+@import "./details/details.scss";
+@import "./cart/cart.scss";
+@import "./form/form.scss";
+
+.wrapper {
+	width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	&.bg {
+		&::before {
+			content: "";
+			background-color: rgb(0, 0, 0, 0.7);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 9;
+			cursor: pointer;
+		}
+	}
+}
+
+.page {
+	flex: 1 1 auto;
+}
+
+.container {
+	max-width: $maxWidthContainer + px;
+	margin: 0 auto;
+	padding: 0 15px;
+}
+
+.activeLittleBig {
+	border: 1px solid red;
+}
+
+.activeCategoryBrand::before {
+	background: red;
+}
